@@ -19,15 +19,18 @@ class AlphaWidgetDelagate : public QItemDelegate
  public:
      AlphaWidgetDelagate(QObject *parent = 0);
 
-     QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option,
+     QWidget *createEditor(QWidget *parent,
+                           const QStyleOptionViewItem &option,
                            const QModelIndex &index) const;
 
      void setEditorData(QWidget *editor, const QModelIndex &index) const;
-     void setModelData(QWidget *editor, QAbstractItemModel *model,
+     void setModelData(QWidget *editor,
+                       QAbstractItemModel *model,
                        const QModelIndex &index) const;
 
      void updateEditorGeometry(QWidget *editor,
-         const QStyleOptionViewItem &option, const QModelIndex &index) const;
+                               const QStyleOptionViewItem &option,
+                               const QModelIndex &index) const;
  private:
 	 int maxValue(const QModelIndex &index) const;
  };
