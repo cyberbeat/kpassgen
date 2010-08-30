@@ -64,7 +64,6 @@ AlphanumericalPage::AlphanumericalPage(QWidget *parent) :
 
 	connect(m_ui->simple,		SIGNAL(toggled(bool)), this, SLOT(setSimple(bool)));
 	connect(m_ui->alphaWidget, SIGNAL(itemChanged(QTableWidgetItem*)), this, SLOT(tableChanged(QTableWidgetItem*)));
-	connect(m_ui->simpleTolerance, SIGNAL(valueChanged(int)), this, SLOT(simpleToleranceChanged(int)));
 
 	updateSettings();
 
@@ -93,7 +92,6 @@ void AlphanumericalPage::updateSettings()
 			m_ui->alphaWidget->item(i, 1)->setText(QString("%1").arg(minimumList[i]));
 	}
     m_ui->simple->setChecked(Settings::simple());
-	m_ui->simpleTolerance->setValue(Settings::simpleTolerence());
 
     disableLast();
 }

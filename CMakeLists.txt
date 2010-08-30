@@ -6,7 +6,7 @@ include_directories(${QT_INCLUDE} ${KDE4_INCLUDES} ${CMAKE_CURRENT_BINARY_DIR})
 
 ###### Building kdicegen executable ######
 set(kpassgen_SRCS
-	main.cpp
+    main.cpp
 	mainwindow.cpp
 	hexpage.cpp
 	alphanumericalpage.cpp

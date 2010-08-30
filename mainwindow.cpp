@@ -64,35 +64,40 @@ MainWindow::MainWindow(QWidget *parent) :
 	m_OptionTab->addItem(m_HexPage, i18n("Hex"));
 	m_OptionTab->addItem(m_OptionsPage, i18n("General Options"));
 
-	m_OptionTab->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+	m_OptionTab->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::MinimumExpanding);
 	m_OptionTab->setMinimumSize(m_OptionTab->sizeHint());
 
 	m_PasswordBox->addAction(actionCollection()->action("edit-copy"));
 	m_PasswordBox->addAction(actionCollection()->action("monoToggle"));
+	m_PasswordBox->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 	actionCollection()->action("edit-copy")->setEnabled(false);
 	m_CopyButton->setEnabled(false);
 	m_ExpandButton->setCheckable(true);
 
-	QVBoxLayout* mainLayout = new QVBoxLayout;
-	QVBoxLayout* vLayout1   = new QVBoxLayout;
+	QHBoxLayout* centerlayout = new QHBoxLayout;
+	QVBoxLayout* mainlayout   = new QVBoxLayout;
 	QHBoxLayout* hLayout1   = new QHBoxLayout;
 	QHBoxLayout* hLayout2   = new QHBoxLayout;
 
-	mainLayout->addLayout(vLayout1, 1);
-	vLayout1->addLayout(hLayout1);
+//	centerlayout->addLayout(mainlayout, 1);
+	mainlayout->addLayout(hLayout1);
 	hLayout1->addWidget(new QLabel(i18n("Length of Passwords: ")));
 	hLayout1->addWidget(m_Length);
 	hLayout1->addWidget(m_Type);
-	vLayout1->addWidget(m_PasswordBox);
-	vLayout1->addLayout(hLayout2);
+
+    centerlayout->addWidget(m_PasswordBox, 1);
+    centerlayout->addWidget(m_OptionTab, 0);
+
+	mainlayout->addLayout(centerlayout);
+	mainlayout->addLayout(hLayout2);
 	hLayout2->addWidget(m_GenerateButton, 1);
 	hLayout2->addWidget(m_CopyButton, 0);
 	hLayout2->addWidget(m_ExpandButton, 0);
 
-	mainLayout->addWidget(m_OptionTab, 0);
+	centerlayout->addWidget(m_OptionTab, 0);
 
 	QWidget* widget = new QWidget;
-	widget->setLayout(mainLayout);
+	widget->setLayout(mainlayout);
 	setCentralWidget(widget);
 
 	m_OptionTab->hide();
