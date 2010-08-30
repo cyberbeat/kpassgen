@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
+<kcfg>
+		<kcfgfile/>
+		<include>kglobalsettings.h</include>
+		<group name="alphanumerical">
+                <entry name="characterList" type="StringList">
+                        <label>List of all characters</label>
+						<default code="true">QStringList() &lt;&lt;"abcdefghijklmnopqrstuvwxyz" &lt;&lt;
+						 "ABCDEFGHIJKLMNOPQRSTUVWXYZ" &lt;&lt;
+						 "0123456789" &lt;&lt;
+						 "!\&quot;&amp;&lt;&gt;&apos;#$%()*+,-./:;=?@[\\]^_`{|}~" &lt;&lt;
+						 "" &lt;&lt; ""</default>
+				</entry>
+                <entry name="minimumList" type="IntList">
+                        <label>List of minimum values</label>
+						<default>0,0,0,0,0,0</default>
+				</entry>
+                <entry name="checkedList" type="IntList">
+                        <label>A list of the checked state</label>
+						<default>2,2,2,0,0,0</default>
+                </entry>
+				<entry name="simple" type="Bool">
+						<label>Generate simple passwords</label>
+						<default>false</default>
+				</entry>
+				<entry name="simpleTolerence" type="Int">
+						<label>Simple password tolerence</label>
+						 <min>1</min>
+						 <max>5</max>
+						<default>3</default>
+				</entry>
+				<entry name="monoFont" type="Bool">
+						<label>Use mono spaced fonts or not</label>
+						<default>false</default>
+				</entry>
+		</group>
+		<group name ="hexpage">
+				<entry name="hexLower" type="Bool">
+						<label>Include lower case letters, a-f</label>
+						<default>true</default>
+				</entry>
+		</group>
+		<group name ="generaloptions">
+				<entry name="numberOfPasswords" type="Int">
+						<label>The number of passwords to generate</label>
+						<default>10</default>
+				</entry>
+				<entry name="numberOfCharacters" type="Int">
+						<label>The number of character in a password</label>
+						<default>12</default>
+				</entry>
+				<entry name="type" type="Int">
+						<label>Type of password</label>
+						<default>0</default>
+				</entry>
+				<entry name="uniqueCharacters" type="Bool">
+						<label>If characters should be unique or not</label>
+						<default>false</default>
+				</entry>
+				<entry name="noSimilarCharacter" type="Bool">
+						<label>If characters that look similar should be ignored (B8G6I1l0OQDS5Z2)</label>
+						<default>false</default>
+				</entry>
+		</group>
+</kcfg>

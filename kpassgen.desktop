@@ -1,0 +1,8 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Name=KPassGen
+Exec=kpassgen -caption %c
+Icon=kpassgen
+Type=Application
+Terminal=false
+Categories=Qt;KDE;Utilities;
