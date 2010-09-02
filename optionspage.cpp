@@ -22,24 +22,24 @@ OptionsPage::~OptionsPage()
 
 void OptionsPage::updateSettings()
 {
-	ui->numberOfPasswords->setValue(Settings::numberOfPasswords());
-	ui->noSimilar->setChecked(Settings::noSimilarCharacter());
-	ui->unique->setChecked(Settings::uniqueCharacters());
+//	ui->numberOfPasswords->setValue(Settings::numberOfPasswords());
+//	ui->noSimilar->setChecked(Settings::noSimilarCharacter());
+//	ui->unique->setChecked(Settings::uniqueCharacters());
 }
 
 void OptionsPage::numberOfPasswordsChanged(int i)
 {
-	Settings::setNumberOfPasswords(i);
+//	Settings::setNumberOfPasswords(i);
 }
 
 void OptionsPage::noSimular(bool i)
 {
-	Settings::setNoSimilarCharacter(i);
+//	Settings::setNoSimilarCharacter(i);
 }
 
 void OptionsPage::unique(bool i)
 {
-	Settings::setUniqueCharacters(i);
+//	Settings::setUniqueCharacters(i);
 }
 
 void OptionsPage::changeEvent(QEvent *e)

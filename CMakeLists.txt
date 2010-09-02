@@ -17,7 +17,7 @@ set(kpassgen_SRCS
 
 kde4_add_kcfg_files(kpassgen_SRCS settings.kcfgc)
 
-kde4_add_ui_files(kpassgen_SRCS alphanumericalpage.ui hexpage.ui optionspage.ui)
+kde4_add_ui_files(kpassgen_SRCS mainwindow.ui alphanumericalpage.ui hexpage.ui optionspage.ui)
 
 kde4_add_app_icon( kpassgen "${CMAKE_CURRENT_SOURCE_DIR}/hi*-app-kpassgen.png"})
 

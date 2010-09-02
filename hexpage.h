@@ -1,4 +1,4 @@
-#ifndef HEXPAGE_H
+    #ifndef HEXPAGE_H
 #define HEXPAGE_H
 
 #include <QtGui/QWidget>

@@ -2,45 +2,33 @@
 #define GENERATEPASSWORD_H
 
 #include "commondef.h"
-#include "settings.h"
+#include "random.h"
 
 #include <QObject>
 #include <QString>
-#include <QStringList>
 #include <QFlags>
-#include <KLocale>
 
 
 class GeneratePassword : public QObject
 {
-	Q_OBJECT
+    Q_OBJECT
 public:
-	static QStringList	getLastPasswords() { return lastPasswords; }
-	static QStringList	generatePasswords();
-	static QStringList	getAlphaCharacterList();
-	static QList<int>	getAlphaMinimumList();
-	static QString		getAlphaCharacters();
-	static QString		getHexCharacters();
+    enum Option { None        = 0x0,
+                  Unique      = 0x1,
+                  Unambiguous = 0x2 };
+    Q_DECLARE_FLAGS(Options, Option)
+
+    static QStringList genAlpha(int length, QString &characterset,
+                            int amount, QFlags<Option> &flag = None);
+    static QString genPernouncable(int length, QString &characterset);
+    static QString genHex(int length, QString &characterset);
 
 private:
-	static QString generateAlphaPassword();
-	static QString generateAlphaSimplePassword();
-	static QString generateHexPassword();
-	static QString chooseCharacters(const QString characterSet, int count);
-
-	static QString getLower()	{ return QString(Settings::characterList()[KPassGen::Lower-1]); }
-	static QString getUpper()	{ return QString(Settings::characterList()[KPassGen::Upper-1]); }
-	static QString getNumber()	{ return QString(Settings::characterList()[KPassGen::Numbers-1]); }
-	static QString getSymbol()	{ return QString(Settings::characterList()[KPassGen::Symbols-1]); }
-	static QString getCharacterSet(int index)	{ return (index < Settings::characterList().count() ?
-														  QString(Settings::characterList()[index]) :
-														  QString()); }
-
-	static QStringList lastPasswords;
-	static QString pickedCharacters;
-
+    static const Random random;
+    static const QString ambiguous;
 };
 
+Q_DECLARE_OPERATORS_FOR_FLAGS(GeneratePassword::Options)
+QString GeneratePassword::ambiguous = "B8G6I1l0OQDS5Z2";
 
-static const QString ambiguous = "B8G6I1l0OQDS5Z2";
 #endif // GENERATEPASSWORD_H

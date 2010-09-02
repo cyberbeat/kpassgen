@@ -29,6 +29,10 @@
 
 #include <KXmlGuiWindow>
 
+namespace Ui {
+    class MainWindow;
+}
+
 class Settings;
 
 class QCheckBox;
@@ -74,7 +78,9 @@ private:
 
     AlphanumericalPage* m_AlphanumericalPage;
 	HexPage*			m_HexPage;
-	OptionsPage*		m_OptionsPage;
+    OptionsPage*		m_OptionsPage;
+
+    Ui::MainWindow*    m_ui;
 
 protected:
 	void closeEvent(QCloseEvent* e);

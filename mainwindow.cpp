@@ -16,6 +16,7 @@
 	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 #include "mainwindow.h"
+#include "ui_mainwindow.h"
 #include "settings.h"
 
 #include <QApplication>
@@ -43,8 +44,9 @@
 MainWindow::MainWindow(QWidget *parent) :
 	KXmlGuiWindow(parent)
 {
-	setupConfig();
-
+    m_ui->setupUi(this);
+    setupConfig();
+    /*
 	m_Length			= new KIntSpinBox(1, 999, 1, 12, this);
 	m_Type				= new QComboBox;
 	m_PasswordBox		= new PasswordList;
@@ -108,9 +110,10 @@ MainWindow::MainWindow(QWidget *parent) :
 	connect(m_Length,				SIGNAL(valueChanged(int)), 	this, SLOT(setNumberOfCharacters(int)));
 	connect(m_Type,					SIGNAL(currentIndexChanged(int)),		this, SLOT(setType(int)));
 
-	setupGUI(Save | StatusBar);
+    */
 
-	updateSettings();
+    updateSettings();
+        setupGUI(Save | StatusBar);
 }
 
 MainWindow::~MainWindow()
@@ -141,12 +144,14 @@ void MainWindow::setupConfig()
 
 void MainWindow::updateSettings()
 {
-	m_Length->setValue(Settings::numberOfCharacters());
+    /*
+        m_sLength->setValue(Settings::numberOfCharacters());
 	m_Type->setCurrentIndex(Settings::type());
 	actionCollection()->action("monoToggle")->setChecked(Settings::monoFont());
 	m_AlphanumericalPage->updateSettings();
 	m_HexPage->updateSettings();
-	m_OptionsPage->updateSettings();
+        m_OptionsPage->updateSettings();
+        */
 }
 
 void MainWindow::genPassword()
