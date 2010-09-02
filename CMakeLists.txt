@@ -8,16 +8,14 @@ include_directories(${QT_INCLUDE} ${KDE4_INCLUDES} ${CMAKE_CURRENT_BINARY_DIR})
 set(kpassgen_SRCS
     main.cpp
     mainwindow.cpp
-    hexpage.cpp
-    alphanumericalpage.cpp
-    optionspage.cpp
+    kpassgen.cpp
     generatepassword.cpp
     passwordlist.cpp
 )
 
 kde4_add_kcfg_files(kpassgen_SRCS settings.kcfgc)
 
-kde4_add_ui_files(kpassgen_SRCS mainwindow.ui alphanumericalpage.ui hexpage.ui optionspage.ui)
+kde4_add_ui_files(kpassgen_SRCS kpassgen.ui)
 
 kde4_add_app_icon( kpassgen "${CMAKE_CURRENT_SOURCE_DIR}/hi*-app-kpassgen.png"})
 

@@ -2,12 +2,13 @@
 #define RANDOM_H
 #include <limits>
 #include <time.h>
+#include <QtGlobal>
 
 class Random
 {
 public:
-    Random() { qseed(time(NULL)); }
-    Random(int seed) { qseed(seed); }
+    Random() { qsrand(time(NULL)); }
+    Random(int seed) { qsrand(seed); }
 
     int nextInt() { return qrand(); }
     int nextInt(int max) { return qrand() % max; }

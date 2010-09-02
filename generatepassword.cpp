@@ -2,7 +2,7 @@
 #include "settings.h"
 #include "random.h"
 
-QStringList GeneratePassword::genAlpha(int length, QString &characterset,
+QStringList GeneratePassword::genAlphanumerical(int length, QString &characterset,
                                        int amount, QFlags<Option> &flags)
 {
     QStringList passwordList;
@@ -21,8 +21,3 @@ QStringList GeneratePassword::genAlpha(int length, QString &characterset,
     return passwordList;
 }
 
-QString GeneratePassword::generateHexPassword()
-{
-	QString password;
-	return password;
-}

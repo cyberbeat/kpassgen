@@ -18,31 +18,13 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "alphanumericalpage.h"
-#include "hexpage.h"
-#include "generatepassword.h"
-#include "commondef.h"
-#include "optionspage.h"
 #include "passwordlist.h"
 
 #include <QStringList>
 
 #include <KXmlGuiWindow>
 
-namespace Ui {
-    class MainWindow;
-}
 
-class Settings;
-
-class QCheckBox;
-class QToolBox;
-class QComboBox;
-
-class KPushButton;
-class KLineEdit;
-class KIntSpinBox;
-class KListWidget;
 
 class MainWindow : public KXmlGuiWindow {
     Q_OBJECT
@@ -50,37 +32,15 @@ public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-	void addPassword(QStringList pass)	{ m_PasswordBox->addItems(pass); }
-	void clear()						{ m_PasswordBox->clear(); }
+//	void addPassword(QStringList pass)	{ m_PasswordBox->addItems(pass); }
+//	void clear()						{ m_PasswordBox->clear(); }
 
 private slots:
-	void genPassword();
-	void copy();
-	void monoToggle(bool b);
-	void expandOptions(bool b);
-	void setNumberOfCharacters(int i);
-	void setType(int i);
 
 private:
 	void setupActions();
 	void setupConfig();
 	void updateSettings();
-
-	GeneratePassword* m_GeneratePassword;
-	Settings*		m_settings;
-	KIntSpinBox*	m_Length;
-	QComboBox*		m_Type;
-	PasswordList*	m_PasswordBox;
-	KPushButton*	m_GenerateButton;
-	KPushButton*	m_CopyButton;
-	KPushButton*	m_ExpandButton;
-	QToolBox*		m_OptionTab;
-
-    AlphanumericalPage* m_AlphanumericalPage;
-	HexPage*			m_HexPage;
-    OptionsPage*		m_OptionsPage;
-
-    Ui::MainWindow*    m_ui;
 
 protected:
 	void closeEvent(QCloseEvent* e);
