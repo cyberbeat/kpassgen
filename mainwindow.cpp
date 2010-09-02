@@ -51,7 +51,7 @@ MainWindow::MainWindow(QWidget *parent) :
     setupActions();
 
     updateSettings();
-    setupGUI(Save | StatusBar);
+    setupGUI(Create | Save | StatusBar);
 }
 
 MainWindow::~MainWindow()
