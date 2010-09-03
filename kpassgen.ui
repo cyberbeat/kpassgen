@@ -52,6 +52,9 @@
        <property name="maximum">
         <number>1024</number>
        </property>
+       <property name="value">
+        <number>12</number>
+       </property>
       </widget>
      </item>
      <item>
@@ -107,7 +110,7 @@
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_2">
                <item>
-                <widget class="QCheckBox" name="checkLowercase">
+                <widget class="QCheckBox" name="checkAlphaLowercase">
                  <property name="whatsThis">
                   <string>Sets whether or not lowercase characters are allowed to appear in the password (a-z).</string>
                  </property>
@@ -120,7 +123,7 @@
                 </widget>
                </item>
                <item>
-                <widget class="QCheckBox" name="checkUppercase">
+                <widget class="QCheckBox" name="checkAlphaUppercase">
                  <property name="whatsThis">
                   <string>Sets whether or not uppercase characters are allowed to appear in the password (A-Z).</string>
                  </property>
@@ -130,7 +133,7 @@
                 </widget>
                </item>
                <item>
-                <widget class="QCheckBox" name="checkNumbers">
+                <widget class="QCheckBox" name="checkAlphaNumbers">
                  <property name="whatsThis">
                   <string>Sets whether or not numbers are allowed to appear in the password (0-9).</string>
                  </property>
@@ -143,7 +146,7 @@
                 </widget>
                </item>
                <item>
-                <widget class="QCheckBox" name="checkSymbols">
+                <widget class="QCheckBox" name="checkAlphaSymbols">
                  <property name="whatsThis">
                   <string>Sets whether or not special symbols are allowed to appear in the password.</string>
                  </property>
@@ -164,14 +167,14 @@
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_4">
                  <item>
-                  <widget class="QCheckBox" name="checkCustom">
+                  <widget class="QCheckBox" name="checkAlphaCustom">
                    <property name="text">
                     <string/>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLineEdit" name="lineCustom">
+                  <widget class="QLineEdit" name="lineAlphaCustom">
                    <property name="whatsThis">
                     <string>A list of custom characters to be allowed in the password. Note: duplicates (including with the above options) will be merged (unless &quot;Unique Characters Only&quot; is checked.</string>
                    </property>
@@ -189,7 +192,7 @@
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_6">
                <item>
-                <widget class="QCheckBox" name="checkUnique">
+                <widget class="QCheckBox" name="checkAlphaUnique">
                  <property name="whatsThis">
                   <string>Do not generate passwords with duplicate characters.</string>
                  </property>
@@ -199,7 +202,7 @@
                 </widget>
                </item>
                <item>
-                <widget class="QCheckBox" name="checkUnambiguous">
+                <widget class="QCheckBox" name="checkAlphaUnambiguous">
                  <property name="whatsThis">
                   <string>Removed similar characters from the </string>
                  </property>
@@ -235,14 +238,14 @@
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_4">
                <item>
-                <widget class="QRadioButton" name="radioButton">
+                <widget class="QRadioButton" name="radioHexLower">
                  <property name="text">
                   <string>&amp;Lowercase</string>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="QRadioButton" name="radioButton_2">
+                <widget class="QRadioButton" name="radioHexUpper">
                  <property name="text">
                   <string>&amp;Uppercase</string>
                  </property>
@@ -283,12 +286,12 @@
               <string>Amount</string>
              </property>
              <property name="buddy">
-              <cstring>spinBox</cstring>
+              <cstring>spinAmount</cstring>
              </property>
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QSpinBox" name="spinBox">
+            <widget class="QSpinBox" name="spinAmount">
              <property name="whatsThis">
               <string>The number of passwords to generate at a time</string>
              </property>
@@ -337,7 +340,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="buttonMore">
+      <widget class="QPushButton" name="buttonOptions">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -382,7 +385,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>buttonMore</sender>
+   <sender>buttonOptions</sender>
    <signal>toggled(bool)</signal>
    <receiver>optionspane</receiver>
    <slot>setVisible(bool)</slot>
