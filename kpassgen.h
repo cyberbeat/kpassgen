@@ -19,11 +19,10 @@
 #define KPASSGEN_H
 
 #include <QWidget>
-#include "ui_kpassgen.h"
 
-//namespace Ui {
-//    class KPassGen;
-//}
+namespace Ui {
+    class KPassGen;
+}
 
 class KPassGen : public QWidget
 {
