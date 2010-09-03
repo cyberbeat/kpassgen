@@ -1,6 +1,6 @@
 #include "kpassgen.h"
-#include "ui_kpassgen.h"
 #include "generatepassword.h"
+#include "settings.h"
 
 #include <QStringList>
 #include <KDebug>
@@ -26,12 +26,44 @@ KPassGen::~KPassGen()
     delete ui;
 }
 
+bool KPassGen::writeSettings()
+{
+    Settings::setAlphaCustom(ui->checkAlphaCustom->isChecked());
+    Settings::setAlphaLowercase(ui->checkAlphaLowercase->isChecked());
+    Settings::setAlphaNumbers(ui->checkAlphaNumbers->isChecked());
+    Settings::setAlphaSymbols(ui->checkAlphaSymbols->isChecked());
+    Settings::setAlphaUnambiguous(ui->checkAlphaUnambiguous->isChecked());
+    Settings::setAlphaUnique(ui->checkAlphaUnique->isChecked());
+    Settings::setAlphaUppercase(ui->checkAlphaUppercase->isChecked());
+    Settings::setOptionsVisable(ui->buttonOptions->isChecked());
+    Settings::setType(ui->comboType->currentIndex());
+    Settings::setAlphaCustomText(ui->lineAlphaCustom->text());
+    Settings::setHexLower(ui->radioHexLower->isChecked());
+    Settings::setAmount(ui->spinAmount->value());
+    Settings::setLength(ui->spinLength->value());
+}
+
+bool KPassGen::readSettings()
+{
+    ui->checkAlphaCustom->setChecked(Settings::alphaCustom());
+    ui->checkAlphaLowercase->setChecked(Settings::alphaLowercase());
+    ui->checkAlphaNumbers->setChecked(Settings::alphaNumbers());
+    ui->checkAlphaSymbols->setChecked(Settings::alphaSymbols());
+    ui->checkAlphaUnambiguous->setChecked(Settings::alphaUnambiguous());
+    ui->checkAlphaUnique->setChecked(Settings::alphaUnique());
+    ui->checkAlphaUppercase->setChecked(Settings::alphaUppercase());
+    ui->buttonOptions->setChecked(Settings::optionsVisable());
+    ui->comboType->setCurrentIndex(Settings::type());
+    ui->lineAlphaCustom->setText(Settings::alphaCustomText());
+    ui->radioHexLower->setChecked(Settings::hexLower());
+    ui->spinAmount->setValue(Settings::amount());
+    ui->spinLength->setValue(Settings::length());
+}
+
 void KPassGen::genPass() {
 
     QFlags<GeneratePassword::Option> flags;
     QString characterset;
-
-    kDebug() << "KPassGen::genPass - currentIndex: " << ui->comboType->currentIndex();
 
     switch(ui->comboType->currentIndex()) {
     case 0:
@@ -40,7 +72,6 @@ void KPassGen::genPass() {
 
         if (ui->checkAlphaUnique->isChecked())
             flags |= GeneratePassword::Unique;
-
 
         if (ui->checkAlphaLowercase->isChecked())
             characterset += lowercaseset;

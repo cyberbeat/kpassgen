@@ -24,7 +24,7 @@
 
 #include <KXmlGuiWindow>
 
-
+class KPassGen;
 
 class MainWindow : public KXmlGuiWindow {
     Q_OBJECT
@@ -40,7 +40,8 @@ private slots:
 private:
 	void setupActions();
 	void setupConfig();
-	void updateSettings();
+
+	KPassGen *passwidget;
 
 protected:
 	void closeEvent(QCloseEvent* e);

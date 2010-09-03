@@ -2,10 +2,11 @@
 #define KPASSGEN_H
 
 #include <QWidget>
+#include "ui_kpassgen.h"
 
-namespace Ui {
-    class KPassGen;
-}
+//namespace Ui {
+//    class KPassGen;
+//}
 
 class KPassGen : public QWidget
 {
@@ -14,6 +15,9 @@ class KPassGen : public QWidget
 public:
     explicit KPassGen(QWidget *parent = 0);
     ~KPassGen();
+
+    bool writeSettings();
+    bool readSettings();
 
 private slots:
     void genPass();

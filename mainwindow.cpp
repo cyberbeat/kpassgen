@@ -24,28 +24,16 @@
 #include <QClipboard>
 #include <QtGui/QWidget>
 #include <QString>
-#include <QLabel>
-#include <QCheckBox>
-#include <QComboBox>
-#include <QTabWidget>
-#include <QFormLayout>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QToolBox>
 
 #include <KLocale>
-#include <KLineEdit>
-#include <KPushButton>
-#include <KShortcut>
-#include <KIntSpinBox>
-#include <KListWidget>
 #include <KActionCollection>
 #include <KAction>
 
 MainWindow::MainWindow(QWidget *parent) :
 	KXmlGuiWindow(parent)
 {
-    setCentralWidget(new KPassGen);
+    passwidget = new KPassGen(this);
+    setCentralWidget(passwidget);
     setupConfig();
 
     setupActions();
@@ -78,22 +66,12 @@ void MainWindow::setupActions()
 
 void MainWindow::setupConfig()
 {
+	passwidget->readSettings();
 	Settings::self()->readConfig();
-}
-
-void MainWindow::updateSettings()
-{
-/*
-	m_sLength->setValue(Settings::numberOfCharacters());
-	m_Type->setCurrentIndex(Settings::type());
-	actionCollection()->action("monoToggle")->setChecked(Settings::monoFont());
-	m_AlphanumericalPage->updateSettings();
-	m_HexPage->updateSettings();
-	m_OptionsPage->updateSettings();
-*/
 }
 
 void MainWindow::closeEvent(QCloseEvent* e)
 {
+	passwidget->writeSettings();
 	Settings::self()->writeConfig();
 }

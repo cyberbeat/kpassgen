@@ -33,7 +33,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QSpinBox" name="spinLength">
+      <widget class="KIntSpinBox" name="spinLength">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -174,7 +174,7 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLineEdit" name="lineAlphaCustom">
+                  <widget class="KLineEdit" name="lineAlphaCustom">
                    <property name="whatsThis">
                     <string>A list of custom characters to be allowed in the password. Note: duplicates (including with the above options) will be merged (unless &quot;Unique Characters Only&quot; is checked.</string>
                    </property>
@@ -291,7 +291,7 @@
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QSpinBox" name="spinAmount">
+            <widget class="KIntSpinBox" name="spinAmount">
              <property name="whatsThis">
               <string>The number of passwords to generate at a time</string>
              </property>
@@ -314,7 +314,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
-      <widget class="QPushButton" name="buttonCopy">
+      <widget class="KPushButton" name="buttonCopy">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -327,7 +327,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="buttonGenerate">
+      <widget class="KPushButton" name="buttonGenerate">
        <property name="sizePolicy">
         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -340,7 +340,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="buttonOptions">
+      <widget class="KPushButton" name="buttonOptions">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -363,7 +363,22 @@
   <customwidget>
    <class>PasswordList</class>
    <extends>QListWidget</extends>
-   <header>passwordlist.h</header>
+   <header location="global">passwordlist.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KIntSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header location="global">knuminput.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header location="global">klineedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KPushButton</class>
+   <extends>QPushButton</extends>
+   <header location="global">kpushbutton.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
