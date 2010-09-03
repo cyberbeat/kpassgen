@@ -176,7 +176,11 @@
                  <item>
                   <widget class="KLineEdit" name="lineAlphaCustom">
                    <property name="whatsThis">
-                    <string>A list of custom characters to be allowed in the password. Note: duplicates (including with the above options) will be merged (unless &quot;Unique Characters Only&quot; is checked.</string>
+                    <string>A list of custom characters to be allowed in the password. 
+
+Note: This set allows passwords with duplicates to appear even when Unique Character Only option is checked, but only to a maximum of the number of times they appear (+1 if they are in another set as well).
+
+Ambiguous character in this set will NOT be removed if the Unambiguous option is checked.</string>
                    </property>
                   </widget>
                  </item>
@@ -194,7 +198,9 @@
                <item>
                 <widget class="QCheckBox" name="checkAlphaUnique">
                  <property name="whatsThis">
-                  <string>Do not generate passwords with duplicate characters.</string>
+                  <string>Generates passwords without duplicates. 
+
+Note: Characters that appear more then once in the custom character set will be allowed to appear multiple times, but only to the maximum number of times they appear in that set (+ any other sets the belong to).</string>
                  </property>
                  <property name="text">
                   <string>Unique Characters Only</string>
@@ -204,7 +210,16 @@
                <item>
                 <widget class="QCheckBox" name="checkAlphaUnambiguous">
                  <property name="whatsThis">
-                  <string>Removed similar characters from the </string>
+                  <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;border: none;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Removed similar characters (B8G6I1l0OQDS5Z). &lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Note: This option does NOT remove characters from the custom set.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
                  </property>
                  <property name="text">
                   <string>Unambiguous</string>
