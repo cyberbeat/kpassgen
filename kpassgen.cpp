@@ -9,6 +9,7 @@ const QString lowercaseset("abcdefghijklmnopqrstuvwxyz");
 const QString uppercaseset("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 const QString symbolset("¬`!\"£$%^&*()_+-={}[];'#:@~<>?,./|\\ ");
 const QString numberset("0123456789");
+const QString hexset("0123456789ABCDEF");
 
 KPassGen::KPassGen(QWidget *parent) :
     QWidget(parent),
@@ -26,30 +27,43 @@ KPassGen::~KPassGen()
 }
 
 void KPassGen::genPass() {
+
     QFlags<GeneratePassword::Option> flags;
-
-    if (ui->checkAlphaUnambiguous->isChecked())
-        flags |= GeneratePassword::Unambiguous;
-
-    if (ui->checkAlphaUnique->isChecked())
-        flags |= GeneratePassword::Unique;
-
     QString characterset;
 
-    if (ui->checkAlphaLowercase->isChecked())
-        characterset += lowercaseset;
+    kDebug() << "KPassGen::genPass - currentIndex: " << ui->comboType->currentIndex();
 
-    if (ui->checkAlphaUppercase->isChecked())
-        characterset += uppercaseset;
+    switch(ui->comboType->currentIndex()) {
+    case 0:
+        if (ui->checkAlphaUnambiguous->isChecked())
+            flags |= GeneratePassword::Unambiguous;
 
-    if (ui->checkAlphaSymbols->isChecked())
-        characterset += symbolset;
+        if (ui->checkAlphaUnique->isChecked())
+            flags |= GeneratePassword::Unique;
 
-    if (ui->checkAlphaNumbers->isChecked())
-        characterset += numberset;
 
-    if (ui->checkAlphaCustom->isChecked())
-        characterset += ui->lineAlphaCustom->text();
+        if (ui->checkAlphaLowercase->isChecked())
+            characterset += lowercaseset;
+
+        if (ui->checkAlphaUppercase->isChecked())
+            characterset += uppercaseset;
+
+        if (ui->checkAlphaSymbols->isChecked())
+            characterset += symbolset;
+
+        if (ui->checkAlphaNumbers->isChecked())
+            characterset += numberset;
+
+        if (ui->checkAlphaCustom->isChecked())
+            characterset += ui->lineAlphaCustom->text();
+
+        break;
+    case 1:
+        if (ui->radioHexLower->isChecked())
+            characterset = hexset.toLower();
+        else
+            characterset = hexset;
+    }
 
     kDebug() << "KPassGen::genPass - characterset: " << characterset;
 
