@@ -16,7 +16,6 @@
 	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
 #include "settings.h"
 #include "kpassgen.h"
 

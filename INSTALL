@@ -1,0 +1,7 @@
+To install unpack the archive and execute commands from the unpacked archive:
+
+mkdir build
+cd build
+cmake ../ -DCMAKE_INSTALL_PREFIX=`kde4-config --prefix`
+make
+sudo make install
