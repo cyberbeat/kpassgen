@@ -23,7 +23,6 @@ kde4_add_executable(kpassgen ${kpassgen_SRCS})
 
 target_link_libraries(kpassgen ${KDE4_KDEUI_LIBS})
 
-
 ########### install files ###############
 
 install(TARGETS kpassgen DESTINATION ${BIN_INSTALL_DIR})
@@ -35,4 +34,3 @@ kde4_install_icons(${ICON_INSTALL_DIR})
 install(FILES settings.kcfg  DESTINATION  ${KCFG_INSTALL_DIR})
 
 install(FILES kpassgenui.rc DESTINATION  ${DATA_INSTALL_DIR}/kpassgen)
-

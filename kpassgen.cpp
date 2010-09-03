@@ -1,5 +1,14 @@
 #include "kpassgen.h"
 #include "ui_kpassgen.h"
+#include "generatepassword.h"
+
+#include <QStringList>
+#include <KDebug>
+
+const QString lowercaseset("abcdefghijklmnopqrstuvwxyz");
+const QString uppercaseset("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+const QString symbolset("¬`!\"£$%^&*()_+-={}[];'#:@~<>?,./|\\ ");
+const QString numberset("0123456789");
 
 KPassGen::KPassGen(QWidget *parent) :
     QWidget(parent),
@@ -7,11 +16,48 @@ KPassGen::KPassGen(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->optionspane->setVisible(false);
+
+    connect(ui->buttonGenerate, SIGNAL(clicked()), this, SLOT(genPass()));
 }
 
 KPassGen::~KPassGen()
 {
     delete ui;
+}
+
+void KPassGen::genPass() {
+    QFlags<GeneratePassword::Option> flags;
+
+    if (ui->checkAlphaUnambiguous->isChecked())
+        flags |= GeneratePassword::Unambiguous;
+
+    if (ui->checkAlphaUnique->isChecked())
+        flags |= GeneratePassword::Unique;
+
+    QString characterset;
+
+    if (ui->checkAlphaLowercase->isChecked())
+        characterset += lowercaseset;
+
+    if (ui->checkAlphaUppercase->isChecked())
+        characterset += uppercaseset;
+
+    if (ui->checkAlphaSymbols->isChecked())
+        characterset += symbolset;
+
+    if (ui->checkAlphaNumbers->isChecked())
+        characterset += numberset;
+
+    if (ui->checkAlphaCustom->isChecked())
+        characterset += ui->lineAlphaCustom->text();
+
+    kDebug() << "KPassGen::genPass - characterset: " << characterset;
+
+    QStringList passlist = GeneratePassword::genAlphanumerical(
+                ui->spinLength->value(), characterset,
+                ui->spinAmount->value(), flags);
+
+    ui->listPasswords->replace(passlist);
 }
 
 void KPassGen::changeEvent(QEvent *e)

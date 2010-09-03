@@ -15,6 +15,9 @@ public:
     explicit KPassGen(QWidget *parent = 0);
     ~KPassGen();
 
+private slots:
+    void genPass();
+
 protected:
     void changeEvent(QEvent *e);
 
