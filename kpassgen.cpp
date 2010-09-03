@@ -51,6 +51,8 @@ KPassGen::KPassGen(QWidget *parent) :
             this, SLOT(alphaUpdate()));
     connect(ui->checkAlphaUnique, SIGNAL(toggled(bool)),
             this, SLOT(uniqueToggle(bool)));
+    connect(ui->lineAlphaCustom, SIGNAL(textChanged(QString)),
+            this, SLOT(alphaUpdate()));
     connect(ui->comboType, SIGNAL(currentIndexChanged(int)),
             this, SLOT(pageIndexChanged(int)));
 }
@@ -209,6 +211,10 @@ QString KPassGen::getCharacterSet()
 
     if (ui->checkAlphaNumbers->isChecked())
         characterset += numberset;
+
+    if (ui->checkAlphaUnambiguous->isChecked())
+        for (int i = 0; i < ambiguous.length(); i++)
+            characterset.remove(ambiguous[i]);
 
     if (ui->checkAlphaCustom->isChecked())
         characterset += ui->lineAlphaCustom->text();

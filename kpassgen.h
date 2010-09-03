@@ -50,4 +50,6 @@ private:
     Ui::KPassGen *ui;
 };
 
+const QString ambiguous = "B8G6I1l0OQDS5Z2";
+
 #endif // KPASSGEN_H
