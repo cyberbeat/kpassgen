@@ -76,13 +76,6 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QCommandLinkButton" name="commandLinkButton">
-       <property name="text">
-        <string>CommandLinkButton</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="PasswordList" name="listPasswords"/>
      </item>
      <item>
