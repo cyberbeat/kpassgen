@@ -49,6 +49,8 @@ KPassGen::KPassGen(QWidget *parent) :
             this, SLOT(alphaSetToggle()));
     connect(ui->checkAlphaSymbols, SIGNAL(toggled(bool)),
             this, SLOT(alphaSetToggle()));
+    connect(ui->checkAlphaUnique, SIGNAL(toggled(bool)),
+            this, SLOT(uniqueToggle(bool)));
 }
 
 KPassGen::~KPassGen()
@@ -104,20 +106,7 @@ void KPassGen::genPass() {
         if (ui->checkAlphaUnique->isChecked())
             flags |= GeneratePassword::Unique;
 
-        if (ui->checkAlphaLowercase->isChecked())
-            characterset += lowercaseset;
-
-        if (ui->checkAlphaUppercase->isChecked())
-            characterset += uppercaseset;
-
-        if (ui->checkAlphaSymbols->isChecked())
-            characterset += symbolset;
-
-        if (ui->checkAlphaNumbers->isChecked())
-            characterset += numberset;
-
-        if (ui->checkAlphaCustom->isChecked())
-            characterset += ui->lineAlphaCustom->text();
+        characterset = getCharacterSet();
 
         break;
     case 1:
@@ -174,6 +163,42 @@ void KPassGen::alphaSetToggle()
         ui->checkAlphaNumbers->setEnabled(true);
         ui->checkAlphaCustom->setEnabled(true);
     }
+    uniqueToggle(ui->checkAlphaUnique->isChecked());
+}
+
+void KPassGen::uniqueToggle(bool unique)
+{
+    if (unique) {
+        int max = 1024;
+        int charlength = getCharacterSet().length();
+        if (max > charlength)
+            max = charlength;
+        ui->spinLength->setMaximum(max);
+    } else {
+        ui->spinLength->setMaximum(1024);
+    }
+}
+
+QString KPassGen::getCharacterSet()
+{
+    QString characterset;
+
+    if (ui->checkAlphaLowercase->isChecked())
+        characterset += lowercaseset;
+
+    if (ui->checkAlphaUppercase->isChecked())
+        characterset += uppercaseset;
+
+    if (ui->checkAlphaSymbols->isChecked())
+        characterset += symbolset;
+
+    if (ui->checkAlphaNumbers->isChecked())
+        characterset += numberset;
+
+    if (ui->checkAlphaCustom->isChecked())
+        characterset += ui->lineAlphaCustom->text();
+
+    return characterset;
 }
 
 void KPassGen::changeEvent(QEvent* e)

@@ -39,11 +39,13 @@ public:
 private slots:
     void genPass();
     void alphaSetToggle();
+    void uniqueToggle(bool unique);
 
 protected:
     void changeEvent(QEvent *e);
 
 private:
+    QString getCharacterSet();
     Ui::KPassGen *ui;
 };
 

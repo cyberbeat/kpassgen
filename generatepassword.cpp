@@ -24,13 +24,22 @@ QStringList GeneratePassword::genAlphanumerical(int length, QString &characterse
 {
     QStringList passwordList;
 
+    if (length > characterset.length() && flags & Unique) {
+        kError() << "Length greater then characterset length, "
+                    "cannot generate unique passwords";
+        return QStringList();
+    }
+
     while (passwordList.length() < amount) {
         QString password;
+        QString cs = characterset;
 
         while (password.length() < length) {
-            password.append(characterset[Random::nextInt(characterset.length())]);
-            if (flags.testFlag(Unique))
-                characterset.remove(Random::nextInt(characterset.length(), 1));
+            int index = Random::nextInt(cs.length());
+            password.append(cs[index]);
+            if (flags & Unique) {
+                cs.remove(index, 1);
+            }
         }
         passwordList.append(password);
     }
