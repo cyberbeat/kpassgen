@@ -38,12 +38,8 @@ public:
                             int amount, QFlags<Option> &flag);
 //    static QString genPernouncable(int length, QString &characterset);
 //    static QString genHex(int length, QString &characterset);
-
-private:
-//    static const QString ambiguous;
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(GeneratePassword::Options)
-//QString GeneratePassword::ambiguous = "B8G6I1l0OQDS5Z2";
 
 #endif // GENERATEPASSWORD_H
