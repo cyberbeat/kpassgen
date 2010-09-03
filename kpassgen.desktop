@@ -1,6 +1,7 @@
 #!/usr/bin/env xdg-open
 [Desktop Entry]
 Name=KPassGen
+GenericName=Password Generator
 Exec=kpassgen -caption %c
 Icon=kpassgen
 Type=Application
