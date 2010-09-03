@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>640</width>
-    <height>480</height>
+    <width>435</width>
+    <height>464</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -73,7 +73,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="PasswordList" name="listWidget"/>
+      <widget class="PasswordList" name="listPasswords"/>
      </item>
      <item>
       <widget class="QWidget" name="optionspane" native="true">
@@ -91,6 +91,9 @@
           </property>
           <widget class="QWidget" name="page">
            <layout class="QVBoxLayout" name="verticalLayout_3">
+            <property name="margin">
+             <number>0</number>
+            </property>
             <item>
              <widget class="QGroupBox" name="groupBox">
               <property name="sizePolicy">
