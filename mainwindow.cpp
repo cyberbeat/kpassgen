@@ -32,9 +32,9 @@
 MainWindow::MainWindow(QWidget *parent) :
 	KXmlGuiWindow(parent)
 {
+    setupConfig();
     passwidget = new KPassGen(this);
     setCentralWidget(passwidget);
-    setupConfig();
 
     setupActions();
 
@@ -65,7 +65,6 @@ void MainWindow::setupActions()
 
 void MainWindow::setupConfig()
 {
-	passwidget->readSettings();
 	Settings::self()->readConfig();
 }
 

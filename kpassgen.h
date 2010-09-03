@@ -38,6 +38,7 @@ public:
 
 private slots:
     void genPass();
+    void alphaSetToggle();
 
 protected:
     void changeEvent(QEvent *e);

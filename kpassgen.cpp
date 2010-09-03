@@ -35,7 +35,20 @@ KPassGen::KPassGen(QWidget *parent) :
     ui->setupUi(this);
     ui->optionspane->setVisible(false);
 
-    connect(ui->buttonGenerate, SIGNAL(clicked()), this, SLOT(genPass()));
+    readSettings();
+
+    connect(ui->buttonGenerate, SIGNAL(clicked()),
+            this, SLOT(genPass()));
+    connect(ui->checkAlphaCustom, SIGNAL(toggled(bool)),
+            this, SLOT(alphaSetToggle()));
+    connect(ui->checkAlphaLowercase, SIGNAL(toggled(bool)),
+            this, SLOT(alphaSetToggle()));
+    connect(ui->checkAlphaUppercase, SIGNAL(toggled(bool)),
+            this, SLOT(alphaSetToggle()));
+    connect(ui->checkAlphaNumbers, SIGNAL(toggled(bool)),
+            this, SLOT(alphaSetToggle()));
+    connect(ui->checkAlphaSymbols, SIGNAL(toggled(bool)),
+            this, SLOT(alphaSetToggle()));
 }
 
 KPassGen::~KPassGen()
@@ -75,6 +88,7 @@ bool KPassGen::readSettings()
     ui->radioHexLower->setChecked(Settings::hexLower());
     ui->spinAmount->setValue(Settings::amount());
     ui->spinLength->setValue(Settings::length());
+    alphaSetToggle();
 }
 
 void KPassGen::genPass() {
@@ -113,7 +127,7 @@ void KPassGen::genPass() {
             characterset = hexset;
     }
 
-    kDebug() << "KPassGen::genPass - characterset: " << characterset;
+    kDebug() << "characterset: " << characterset;
 
     QStringList passlist = GeneratePassword::genAlphanumerical(
                 ui->spinLength->value(), characterset,
@@ -122,7 +136,47 @@ void KPassGen::genPass() {
     ui->listPasswords->replace(passlist);
 }
 
-void KPassGen::changeEvent(QEvent *e)
+void KPassGen::alphaSetToggle()
+{
+    bool lower   = ui->checkAlphaLowercase->isChecked();
+    bool upper   = ui->checkAlphaUppercase->isChecked();
+    bool symbol  = ui->checkAlphaSymbols->isChecked();
+    bool number  = ui->checkAlphaNumbers->isChecked();
+    bool custom  = ui->checkAlphaCustom->isChecked();
+    int count = 0;
+
+    if (lower) count++;
+    if (upper) count++;
+    if (symbol) count++;
+    if (number) count++;
+    if (custom) count++;
+
+    kDebug() << "count: " << count;
+
+    if (count == 0) {
+        ui->checkAlphaLowercase->setChecked(true);
+    } else if (count == 1) {
+        if (lower) {
+            ui->checkAlphaLowercase->setEnabled(false);
+        } else if (upper) {
+            ui->checkAlphaUppercase->setEnabled(false);
+        } else if (symbol) {
+            ui->checkAlphaSymbols->setEnabled(false);
+        } else if (number) {
+            ui->checkAlphaNumbers->setEnabled(false);
+        } else if (custom) {
+            ui->checkAlphaCustom->setEnabled(false);
+        }
+    } else {
+        ui->checkAlphaLowercase->setEnabled(true);
+        ui->checkAlphaUppercase->setEnabled(true);
+        ui->checkAlphaSymbols->setEnabled(true);
+        ui->checkAlphaNumbers->setEnabled(true);
+        ui->checkAlphaCustom->setEnabled(true);
+    }
+}
+
+void KPassGen::changeEvent(QEvent* e)
 {
     QWidget::changeEvent(e);
     switch (e->type()) {
