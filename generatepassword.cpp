@@ -11,9 +11,9 @@ QStringList GeneratePassword::genAlphanumerical(int length, QString &characterse
         QString password;
 
         while (password.length() < length) {
-            password.append(characterset[random.nextInt(characterset.length())]);
+            password.append(characterset[Random::nextInt(characterset.length())]);
             if (flags.testFlag(Unique))
-                characterset.remove(random.nextInt(characterset.length(), 1));
+                characterset.remove(Random::nextInt(characterset.length(), 1));
         }
         passwordList.append(password);
     }

@@ -17,12 +17,14 @@
 */
 
 #include "mainwindow.h"
+#include "random.h"
 
 #include <KApplication>
 #include <KAboutData>
 #include <KCmdLineArgs>
 #include <KUrl>
 #include <QTextStream>
+
 
 int main (int argc, char *argv[])
 {
@@ -39,7 +41,8 @@ int main (int argc, char *argv[])
 			ki18n("Copyright (c) 2009 Michael Daffin") );
 	KCmdLineArgs::init( argc, argv, &aboutData );
 
-	qsrand((uint)time(0));
+//	qsrand((uint)time(0));
+	Random::init();
 
 	KApplication app;
 

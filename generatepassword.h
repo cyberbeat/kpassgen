@@ -23,7 +23,6 @@ public:
 //    static QString genHex(int length, QString &characterset);
 
 private:
-    static Random random;
 //    static const QString ambiguous;
 };
 
