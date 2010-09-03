@@ -51,6 +51,8 @@ KPassGen::KPassGen(QWidget *parent) :
             this, SLOT(alphaSetToggle()));
     connect(ui->checkAlphaUnique, SIGNAL(toggled(bool)),
             this, SLOT(uniqueToggle(bool)));
+    connect(ui->comboType, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(pageIndexChanged(int)));
 }
 
 KPassGen::~KPassGen()
@@ -90,7 +92,7 @@ bool KPassGen::readSettings()
     ui->radioHexLower->setChecked(Settings::hexLower());
     ui->spinAmount->setValue(Settings::amount());
     ui->spinLength->setValue(Settings::length());
-    alphaSetToggle();
+    pageIndexChanged(ui->comboType->currentIndex());
 }
 
 void KPassGen::genPass() {
@@ -123,6 +125,19 @@ void KPassGen::genPass() {
                 ui->spinAmount->value(), flags);
 
     ui->listPasswords->replace(passlist);
+}
+
+void KPassGen::pageIndexChanged(int index)
+{
+    kDebug() << "index: " << index;
+    switch(index) {
+    case 0:
+        alphaSetToggle();
+        break;
+    case 1:
+        ui->spinLength->setMaximum(1024);
+        break;
+    }
 }
 
 void KPassGen::alphaSetToggle()
