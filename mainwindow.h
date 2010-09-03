@@ -32,10 +32,8 @@ public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-//	void addPassword(QStringList pass)	{ m_PasswordBox->addItems(pass); }
-//	void clear()						{ m_PasswordBox->clear(); }
-
 private slots:
+    void enableCopy(bool b = true);
 
 private:
 	void setupActions();

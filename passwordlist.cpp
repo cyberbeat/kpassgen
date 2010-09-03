@@ -19,21 +19,48 @@
 
 #include <QApplication>
 #include <QMouseEvent>
+#include <QLabel>
 #include <QFont>
+#include <QClipboard>
 
 PasswordList::PasswordList(QWidget *parent) : KListWidget(parent)
 {
 	setAutoScroll(true);
 	setDragEnabled(true);
 	setContextMenuPolicy(Qt::ActionsContextMenu);
-//	QFont font("Courier");
-//	setFont(font);
 }
 
 void PasswordList::replace(QStringList &passlist)
 {
     clear();
     addItems(passlist);
+}
+
+void PasswordList::copy(int index)
+{
+    // Get an index of the current items if index is -1 or to large
+    if (index < 0 || index >= count()) {
+        if (currentRow() < 0)
+            setCurrentRow(0);
+        index = currentRow();
+    } else {// otherwise select that item
+        setCurrentRow(index);
+    }
+
+    QString password = currentItem()->text();
+
+    QClipboard *cb = QApplication::clipboard();
+
+    cb->setText(password, QClipboard::Clipboard);
+}
+
+void PasswordList::setMonoFont(bool b)
+{
+    QFont font;
+    if (b) {
+        font = QFont("Courier");
+    }
+    setFont(font);
 }
 
 void PasswordList::mousePressEvent(QMouseEvent *event)
@@ -53,7 +80,7 @@ void PasswordList::mouseMoveEvent(QMouseEvent *event)
 	}
 //	QListWidget::mouseMoveEvent(event);
 }
-#include <QLabel>
+
 void PasswordList::preformDrag()
 {
 	QListWidgetItem *item = currentItem();

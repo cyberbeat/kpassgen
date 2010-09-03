@@ -40,6 +40,12 @@ private slots:
     void pageIndexChanged(int index);
     void alphaUpdate();
     void uniqueToggle(bool unique);
+    void copy(int index = -1);
+    void setMonoFont(bool b = false);
+    void setCopyEnabled(bool b = true);
+
+signals:
+    void passwordsChanged();
 
 protected:
     void changeEvent(QEvent *e);

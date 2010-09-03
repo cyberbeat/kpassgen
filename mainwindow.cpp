@@ -32,17 +32,24 @@
 MainWindow::MainWindow(QWidget *parent) :
 	KXmlGuiWindow(parent)
 {
-    setupConfig();
-    passwidget = new KPassGen(this);
-    setCentralWidget(passwidget);
+	setupConfig();
+	passwidget = new KPassGen(this);
+	setCentralWidget(passwidget);
 
-    setupActions();
+	setupActions();
 
-    setupGUI(Create | Save);
+	setupGUI(Create | Save);
+
+	connect(passwidget, SIGNAL(passwordsChanged()), this, SLOT(enableCopy()));
 }
 
 MainWindow::~MainWindow()
 {
+}
+
+void MainWindow::enableCopy(bool b)
+{
+	actionCollection()->action("edit-copy")->setEnabled(b);
 }
 
 void MainWindow::setupActions()
@@ -57,10 +64,11 @@ void MainWindow::setupActions()
 	KAction* monoToggle = new KAction(this);
 	monoToggle->setText(i18n("&Toggle mono spaced font"));
 	monoToggle->setCheckable(true);
+	monoToggle->setChecked(Settings::monoFont());
 	actionCollection()->addAction("monoToggle", monoToggle);
 
-//	connect(copyAction, SIGNAL(triggered()), this, SLOT(copy()));
-//	connect(monoToggle, SIGNAL(toggled(bool)), this, SLOT(monoToggle(bool)));
+	connect(copyAction, SIGNAL(triggered()), passwidget, SLOT(copy()));
+	connect(monoToggle, SIGNAL(toggled(bool)), passwidget, SLOT(setMonoFont(bool)));
 }
 
 void MainWindow::setupConfig()
@@ -70,6 +78,7 @@ void MainWindow::setupConfig()
 
 void MainWindow::closeEvent(QCloseEvent* /*e*/)
 {
+	Settings::setMonoFont(actionCollection()->action("monoToggle")->isChecked());
 	passwidget->writeSettings();
 	Settings::self()->writeConfig();
 }

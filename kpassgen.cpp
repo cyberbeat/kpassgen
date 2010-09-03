@@ -56,6 +56,8 @@ KPassGen::KPassGen(QWidget *parent) :
             this, SLOT(alphaUpdate()));
     connect(ui->comboType, SIGNAL(currentIndexChanged(int)),
             this, SLOT(pageIndexChanged(int)));
+    connect(ui->buttonCopy, SIGNAL(clicked()), this, SLOT(copy()));
+    connect(this, SIGNAL(passwordsChanged()), this, SLOT(setCopyEnabled()));
 }
 
 KPassGen::~KPassGen()
@@ -95,6 +97,7 @@ void KPassGen::readSettings()
     ui->radioHexLower->setChecked(Settings::hexLower());
     ui->spinAmount->setValue(Settings::amount());
     ui->spinLength->setValue(Settings::length());
+    ui->listPasswords->setMonoFont(Settings::monoFont());
     pageIndexChanged(ui->comboType->currentIndex());
 }
 
@@ -128,6 +131,7 @@ void KPassGen::genPass() {
                 ui->spinAmount->value(), flags);
 
     ui->listPasswords->replace(passlist);
+    emit passwordsChanged();
 }
 
 void KPassGen::pageIndexChanged(int index)
@@ -195,6 +199,21 @@ void KPassGen::uniqueToggle(bool unique)
     } else {
         ui->spinLength->setMaximum(1024);
     }
+}
+
+void KPassGen::copy(int index)
+{
+    ui->listPasswords->copy(index);
+}
+
+void KPassGen::setMonoFont(bool b)
+{
+    ui->listPasswords->setMonoFont(b);
+}
+
+void KPassGen::setCopyEnabled(bool b)
+{
+    ui->buttonCopy->setEnabled(b);
 }
 
 QString KPassGen::getCharacterSet()

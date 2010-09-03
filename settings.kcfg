@@ -63,10 +63,6 @@
                 <default>3</default>
             </entry>
         -->
-        <entry name="monoFont" type="Bool">
-            <label>Use mono spaced fonts or not</label>
-            <default>false</default>
-        </entry>
     </group>
     <group name ="hexpage">
         <entry name="hexLower" type="Bool">
@@ -89,6 +85,10 @@
         </entry>
         <entry name="optionsVisable" type="Bool">
             <label>If the options are hidden or not</label>
+            <default>false</default>
+        </entry>
+        <entry name="monoFont" type="Bool">
+            <label>Use mono spaced fonts or not</label>
             <default>false</default>
         </entry>
     </group>
