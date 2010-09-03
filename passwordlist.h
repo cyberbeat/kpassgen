@@ -11,6 +11,8 @@ class PasswordList : public KListWidget
 public:
 	PasswordList(QWidget *parent = 0);
 
+	void replace(QStringList &passlist);
+
 private:
 	void mousePressEvent(QMouseEvent *event);
 	void mouseMoveEvent(QMouseEvent *event);

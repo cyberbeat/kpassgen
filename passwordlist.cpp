@@ -13,6 +13,12 @@ PasswordList::PasswordList(QWidget *parent) : KListWidget(parent)
 //	setFont(font);
 }
 
+void PasswordList::replace(QStringList &passlist)
+{
+    clear();
+    addItems(passlist);
+}
+
 void PasswordList::mousePressEvent(QMouseEvent *event)
 {
 	if (event->button() == Qt::LeftButton)
