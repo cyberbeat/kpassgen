@@ -39,7 +39,7 @@ public:
 private slots:
     void genPass();
     void pageIndexChanged(int index);
-    void alphaSetToggle();
+    void alphaUpdate();
     void uniqueToggle(bool unique);
 
 protected:

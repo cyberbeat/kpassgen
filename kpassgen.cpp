@@ -40,15 +40,15 @@ KPassGen::KPassGen(QWidget *parent) :
     connect(ui->buttonGenerate, SIGNAL(clicked()),
             this, SLOT(genPass()));
     connect(ui->checkAlphaCustom, SIGNAL(toggled(bool)),
-            this, SLOT(alphaSetToggle()));
+            this, SLOT(alphaUpdate()));
     connect(ui->checkAlphaLowercase, SIGNAL(toggled(bool)),
-            this, SLOT(alphaSetToggle()));
+            this, SLOT(alphaUpdate()));
     connect(ui->checkAlphaUppercase, SIGNAL(toggled(bool)),
-            this, SLOT(alphaSetToggle()));
+            this, SLOT(alphaUpdate()));
     connect(ui->checkAlphaNumbers, SIGNAL(toggled(bool)),
-            this, SLOT(alphaSetToggle()));
+            this, SLOT(alphaUpdate()));
     connect(ui->checkAlphaSymbols, SIGNAL(toggled(bool)),
-            this, SLOT(alphaSetToggle()));
+            this, SLOT(alphaUpdate()));
     connect(ui->checkAlphaUnique, SIGNAL(toggled(bool)),
             this, SLOT(uniqueToggle(bool)));
     connect(ui->comboType, SIGNAL(currentIndexChanged(int)),
@@ -132,7 +132,7 @@ void KPassGen::pageIndexChanged(int index)
     kDebug() << "index: " << index;
     switch(index) {
     case 0:
-        alphaSetToggle();
+        alphaUpdate();
         break;
     case 1:
         ui->spinLength->setMaximum(1024);
@@ -140,7 +140,7 @@ void KPassGen::pageIndexChanged(int index)
     }
 }
 
-void KPassGen::alphaSetToggle()
+void KPassGen::alphaUpdate()
 {
     bool lower   = ui->checkAlphaLowercase->isChecked();
     bool upper   = ui->checkAlphaUppercase->isChecked();
