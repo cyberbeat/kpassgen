@@ -38,7 +38,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     setupActions();
 
-    updateSettings();
     setupGUI(Create | Save);
 }
 
