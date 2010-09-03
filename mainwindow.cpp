@@ -68,7 +68,7 @@ void MainWindow::setupConfig()
 	Settings::self()->readConfig();
 }
 
-void MainWindow::closeEvent(QCloseEvent* e)
+void MainWindow::closeEvent(QCloseEvent* /*e*/)
 {
 	passwidget->writeSettings();
 	Settings::self()->writeConfig();

@@ -62,7 +62,7 @@ KPassGen::~KPassGen()
     delete ui;
 }
 
-bool KPassGen::writeSettings()
+void KPassGen::writeSettings()
 {
     Settings::setAlphaCustom(ui->checkAlphaCustom->isChecked());
     Settings::setAlphaLowercase(ui->checkAlphaLowercase->isChecked());
@@ -79,7 +79,7 @@ bool KPassGen::writeSettings()
     Settings::setLength(ui->spinLength->value());
 }
 
-bool KPassGen::readSettings()
+void KPassGen::readSettings()
 {
     ui->checkAlphaCustom->setChecked(Settings::alphaCustom());
     ui->checkAlphaLowercase->setChecked(Settings::alphaLowercase());

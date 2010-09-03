@@ -33,8 +33,8 @@ public:
     explicit KPassGen(QWidget *parent = 0);
     ~KPassGen();
 
-    bool writeSettings();
-    bool readSettings();
+    void writeSettings();
+    void readSettings();
 
 private slots:
     void genPass();
