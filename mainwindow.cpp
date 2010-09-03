@@ -51,12 +51,13 @@ MainWindow::MainWindow(QWidget *parent) :
     setupActions();
 
     updateSettings();
-    setupGUI(Create | Save | StatusBar);
+    setupGUI(Create | Save);
 }
 
 MainWindow::~MainWindow()
 {
 }
+
 void MainWindow::setupActions()
 {
 	KAction* copyAction = new KAction(this);
@@ -89,11 +90,10 @@ void MainWindow::updateSettings()
 	m_AlphanumericalPage->updateSettings();
 	m_HexPage->updateSettings();
 	m_OptionsPage->updateSettings();
-	*/
+*/
 }
 
 void MainWindow::closeEvent(QCloseEvent* e)
 {
-
 	Settings::self()->writeConfig();
 }
