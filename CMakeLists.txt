@@ -11,6 +11,7 @@ set(kpassgen_SRCS
     kpassgen.cpp
     generatepassword.cpp
     passwordlist.cpp
+    passwordwidget.cpp
 )
 
 kde4_add_kcfg_files(kpassgen_SRCS settings.kcfgc)

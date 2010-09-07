@@ -16,12 +16,14 @@
 	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 #include "passwordlist.h"
+#include "passwordwidget.h"
 
 #include <QApplication>
 #include <QMouseEvent>
 #include <QLabel>
 #include <QFont>
 #include <QClipboard>
+#include <QProgressBar>
 
 PasswordList::PasswordList(QWidget *parent) : KListWidget(parent)
 {
@@ -33,7 +35,11 @@ PasswordList::PasswordList(QWidget *parent) : KListWidget(parent)
 void PasswordList::replace(QStringList &passlist)
 {
     clear();
-    addItems(passlist);
+    for( int i = 0; i < passlist.length(); i++) {
+        addItem(passlist.at(i));
+        QListWidgetItem *m = item(i);
+        setItemWidget(m, new PasswordWidget(m->text()));
+    }
 }
 
 void PasswordList::copy(int index)

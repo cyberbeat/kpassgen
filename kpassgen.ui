@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>435</width>
+    <width>467</width>
     <height>464</height>
    </rect>
   </property>
@@ -379,6 +379,11 @@ p, li { white-space: pre-wrap; }
  </widget>
  <customwidgets>
   <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
+  <customwidget>
    <class>PasswordList</class>
    <extends>QListWidget</extends>
    <header location="global">passwordlist.h</header>
@@ -387,11 +392,6 @@ p, li { white-space: pre-wrap; }
    <class>KIntSpinBox</class>
    <extends>QSpinBox</extends>
    <header location="global">knuminput.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header location="global">klineedit.h</header>
   </customwidget>
   <customwidget>
    <class>KPushButton</class>

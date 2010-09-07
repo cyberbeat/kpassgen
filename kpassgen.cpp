@@ -162,8 +162,6 @@ void KPassGen::alphaUpdate()
     if (number) count++;
     if (custom) count++;
 
-    kDebug() << "count: " << count;
-
     if (count == 0) {
         ui->checkAlphaLowercase->setChecked(true);
     } else if (count == 1) {

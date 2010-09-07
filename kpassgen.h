@@ -43,6 +43,12 @@ private slots:
     void copy(int index = -1);
     void setMonoFont(bool b = false);
     void setCopyEnabled(bool b = true);
+//    void passSelected(const QString &password)
+//    {
+//        if (!password) return;
+
+//        ui->strengthBar->setPassword(password);
+//    }
 
 signals:
     void passwordsChanged();
