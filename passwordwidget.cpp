@@ -9,6 +9,7 @@ PasswordWidget::PasswordWidget(const QString &password, QWidget *parent) :
     m_strengthbar = new QProgressBar;
 
     m_strengthbar->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
+    m_strengthbar->setTextVisible(false);
 
     QHBoxLayout *layout = new QHBoxLayout(this);
     layout->setMargin(0);
