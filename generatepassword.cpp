@@ -19,7 +19,7 @@
 #include "settings.h"
 #include "random.h"
 
-QStringList GeneratePassword::genAlphanumerical(int length, QString &characterset,
+QStringList GeneratePassword::genRandom(int length, QString &characterset,
                                        int amount, QFlags<Option> &flags)
 {
     QStringList passwordList;

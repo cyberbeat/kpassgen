@@ -34,7 +34,7 @@ public:
                   Unambiguous = 0x2 };
     Q_DECLARE_FLAGS(Options, Option)
 
-    static QStringList genAlphanumerical(int length, QString &characterset,
+    static QStringList genRandom(int length, QString &characterset,
                             int amount, QFlags<Option> &flag);
 //    static QString genPernouncable(int length, QString &characterset);
 //    static QString genHex(int length, QString &characterset);

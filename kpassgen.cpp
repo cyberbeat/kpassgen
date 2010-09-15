@@ -105,6 +105,7 @@ void KPassGen::genPass() {
 
     QFlags<GeneratePassword::Option> flags;
     QString characterset;
+    QStringList passlist;
 
     switch(ui->comboType->currentIndex()) {
     case 0:
@@ -116,19 +117,25 @@ void KPassGen::genPass() {
 
         characterset = getCharacterSet();
 
+        passlist = GeneratePassword::genRandom(
+                    ui->spinLength->value(), characterset,
+                    ui->spinAmount->value(), flags);
         break;
     case 1:
         if (ui->radioHexLower->isChecked())
             characterset = hexset.toLower();
         else
             characterset = hexset;
+
+        passlist = GeneratePassword::genRandom(
+                    ui->spinLength->value(), characterset,
+                    ui->spinAmount->value(), flags);
+        break;
+    case 2:
+        passlist = QStringList("Prenouncable comming soon");
+        break;
     }
 
-    kDebug() << "characterset: " << characterset;
-
-    QStringList passlist = GeneratePassword::genAlphanumerical(
-                ui->spinLength->value(), characterset,
-                ui->spinAmount->value(), flags);
 
     ui->listPasswords->replace(passlist);
     emit passwordsChanged();
