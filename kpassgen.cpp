@@ -132,7 +132,8 @@ void KPassGen::genPass() {
                     ui->spinAmount->value(), flags);
         break;
     case 2:
-        passlist = QStringList("Prenouncable comming soon");
+        passlist = GeneratePassword::genPernouncable(ui->spinLength->value(),
+                                                     ui->spinAmount->value());
         break;
     }
 
