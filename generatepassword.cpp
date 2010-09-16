@@ -19,22 +19,14 @@
 #include "settings.h"
 #include "random.h"
 
+#include <KDebug>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <sys/types.h>
 #include <sys/times.h>
 #include <argp.h>
-
-#define NC_(array)	( sizeof(array) / sizeof(array[0]) )
-#define F_(i)		( (float) (i) )
-
-#define MAX_PW_LENGTH		64
-#define MIN_PW_LENGTH		4
-#define DEFAULT_PW_LENGTH	8
-#define MAX_GROUP		100
-#define MIN_GROUP		1
-#define DEFAULT_GROUP		1
 
 const QString con("bcdfghjklmnpqrstvwxz");
 const QString vwl("aeiouy");
@@ -70,55 +62,54 @@ QStringList GeneratePassword::genRandom(int length, QString &characterset,
 
 QStringList GeneratePassword::genPernouncable(int length, int amount)
 {
-    int len, grp, digit;
     QStringList passlist;
 
-    grp = amount;
-
-    if(length > MIN_PW_LENGTH)
+    for(int c = 0; c < amount; c++)
     {
-        if(length < MAX_PW_LENGTH)
-        len = length;
-        else
-            len = MAX_PW_LENGTH;
-    }
-    else
-    {
-        len = MIN_PW_LENGTH;
-    }
-
-    if(amount > MIN_GROUP)
-    {
-        if(amount < MAX_GROUP)
-        grp = amount;
-        else
-            grp = MAX_GROUP;
-    }
-    else
-    {
-        grp = MIN_GROUP;
-    }
-
-    for(int c=0; c<grp; c++)
-    {
-        digit=(int) (((float) (len))*rand()/(RAND_MAX+1.0));
         QString password;
+        int cvwl, ccon; //Counts for vowel and constinate
+        QList<int> digits;
 
-        for(int i=0; i<len; i++) {
-            if(i==digit) {
+        // Pick number count and positions
+        {
+            int numdidgets = Random::nextUInt(1, qMax(length/6, 1));
+            for (int i = 0; i < numdidgets; i++) {
+                digits.append(Random::nextUInt(length));
+            }
+        }
+
+        for(int i=0; i<length; i++) {
+            // if number pick number
+            if (digits.contains(i)) {
                 password.append(num.at(Random::nextUInt(num.length())));
             }
-            else if( i%2 ) {
-                password.append(vwl.at(Random::nextUInt(vwl.length())));
-            }
-            else {
+            // else if cvwl > 1 pick const; reset counters
+            else if (cvwl > 0) {
                 password.append(con.at(Random::nextUInt(con.length())));
+                ccon = 1;
+                cvwl = 0;
             }
-
+            // else if ccon > 1 pick vowel; reset counters
+            else if (ccon > 1) {
+                password.append(vwl.at(Random::nextUInt(vwl.length())));
+                ccon = 0;
+                cvwl = 1;
+            }
+            // else pick random letter or vowel
+            else {
+                if (Random::nextUInt(2)) {
+                    password.append(con.at(Random::nextUInt(con.length())));
+                    ccon++;
+                 } else {
+                    password.append(vwl.at(Random::nextUInt(vwl.length())));
+                    cvwl++;
+                }
+            }
         } /* end of password */
 
+        // pick random letters to captilise
         passlist.append(password);
-    } /* end of group */
+    } /* end of password group */
 
 
     return passlist;

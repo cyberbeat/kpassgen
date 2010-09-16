@@ -32,8 +32,8 @@ public:
     static int nextInt(int min, int max) { return ((int) qrand() % max) + min; }
 
     static unsigned int nextUInt() { return qrand(); }
-    static unsigned int nextUInt(int max) { return qrand() % max; }
-    static unsigned int nextUInt(int min, int max) { return (qrand() % max) + min; }
+    static unsigned int nextUInt(unsigned int max) { return qrand() % max; }
+    static unsigned int nextUInt(unsigned int min, unsigned int max) { return (qrand() % max) + min; }
 
 private:
     Random() {}
