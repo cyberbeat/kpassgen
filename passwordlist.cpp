@@ -64,7 +64,8 @@ void PasswordList::setMonoFont(bool b)
 {
     QFont font;
     if (b) {
-        font = QFont("Courier");
+        font.setFamily("Monospace");
+        font.setStyleHint(QFont::TypeWriter);
     }
     setFont(font);
 }
