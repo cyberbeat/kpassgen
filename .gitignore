@@ -1,0 +1,4 @@
+*.user
+build/*
+*.tar.gz
+*.o 
