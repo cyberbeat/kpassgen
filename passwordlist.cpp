@@ -29,16 +29,16 @@ PasswordList::PasswordList(QWidget *parent) : KListWidget(parent)
 {
 	setAutoScroll(true);
 	setDragEnabled(true);
+	setItemDelegate(new PasswordWidget(this));
+	setAlternatingRowColors(true);
 	setContextMenuPolicy(Qt::ActionsContextMenu);
 }
 
 void PasswordList::replace(QStringList &passlist)
 {
     clear();
-    for( int i = 0; i < passlist.length(); i++) {
-        addItem(passlist.at(i));
-        QListWidgetItem *m = item(i);
-        setItemWidget(m, new PasswordWidget(m->text()));
+    foreach(QString pass, passlist) {
+        new QListWidgetItem(pass, this);
     }
 }
 
@@ -92,10 +92,15 @@ void PasswordList::preformDrag()
 {
 	QListWidgetItem *item = currentItem();
 	if (item) {
+		QString pass = item->text();
 		QMimeData *mimeData = new QMimeData;
-		mimeData->setText(item->text());
+		mimeData->setText(pass);
 
-		QLabel label(item->text());
+        if (pass.length() > 26) {
+            pass.truncate(23);
+            pass.append("...");
+        }
+        QLabel label(pass);
 		label.resize(label.sizeHint());
 		QPixmap pixmap(label.size());
 		label.render(&pixmap);

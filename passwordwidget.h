@@ -1,25 +1,30 @@
 #ifndef STRENGTHBAR_H
 #define STRENGTHBAR_H
 
-#include <QWidget>
+#include <QItemDelegate>
 #include <QProgressBar>
 #include <QLabel>
 
-class PasswordWidget : public QWidget
+class PasswordWidget : public QItemDelegate
 {
     Q_OBJECT
 public:
-    explicit PasswordWidget(const QString &password, QWidget *parent = 0);
+    explicit PasswordWidget(QObject *parent = 0);
+    void paint(QPainter* painter, const QStyleOptionViewItem& option,
+                        const QModelIndex& index) const;
+    QSize sizeHint(const QStyleOptionViewItem &option,
+                        const QModelIndex &index) const;
 
+    int getStrength(const QString &pass) const;
 public slots:
-    void setPassword(const QString &pass);
+
 
 private:
-    int effectivePasswordLength(const QString &password);
+    int effectivePasswordLength(const QString &password) const;
 
     int reasonablePasswordLength;
-    QLabel *m_text;
-    QProgressBar *m_strengthbar;
+//    QLabel *m_text;
+//    QProgressBar *m_strengthbar;
 
 };
 

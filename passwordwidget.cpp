@@ -1,26 +1,40 @@
 #include "passwordwidget.h"
 
 #include <QHBoxLayout>
+#include <QLabel>
+#include <QApplication>
+#include <QPainter>
 
-PasswordWidget::PasswordWidget(const QString &password, QWidget *parent) :
-    QWidget(parent), reasonablePasswordLength(12)
+PasswordWidget::PasswordWidget(QObject *parent) :
+	QItemDelegate(parent), reasonablePasswordLength(12) { }
+
+void PasswordWidget::paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
-    m_text = new QLabel(password);
-    m_strengthbar = new QProgressBar;
+    QItemDelegate::paint(painter, option, index);
 
-    m_strengthbar->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
-    m_strengthbar->setTextVisible(false);
+    int progress = getStrength(index.data(Qt::DisplayRole).toString());
+    // Draws teh progress bar
+	QStyleOptionProgressBar bar;
+	QRect rect = option.rect;
+	rect.setLeft(rect.right() - 100);
+	bar.rect = rect;
+	bar.minimum = 0;
+	bar.maximum = 100;
+	bar.progress = progress;
+	bar.textVisible = false;
+	QApplication::style()->drawControl(QStyle::CE_ProgressBar, &bar, painter, 0);
 
-    QHBoxLayout *layout = new QHBoxLayout(this);
-    layout->setMargin(0);
-
-    layout->addStretch(1);
-    layout->addWidget(m_strengthbar);
-
-    setPassword(password);
 }
 
-void PasswordWidget::setPassword(const QString &password)
+QSize PasswordWidget::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
+{
+    // Add enough space for the progress bar
+    QSize size = QItemDelegate::sizeHint(option, index);
+    size.setWidth(size.width() + 105);
+    return size;
+}
+
+int PasswordWidget::getStrength(const QString &password) const
 {
     // Password strength calculator borrowed from kwallet.cpp
     int pwstrength = (20 * password.length() + 80 * effectivePasswordLength(password)) / qMax(reasonablePasswordLength, 2);
@@ -29,11 +43,11 @@ void PasswordWidget::setPassword(const QString &password)
     } else if (pwstrength > 100) {
         pwstrength = 100;
     }
-    m_strengthbar->setValue(pwstrength);
+    return pwstrength;
 }
 
 // Borrowed from kwallet.cpp :)
-int PasswordWidget::effectivePasswordLength(const QString &password)
+int PasswordWidget::effectivePasswordLength(const QString &password) const
 {
     enum Category {
         Digit,
