@@ -69,7 +69,7 @@ QStringList GeneratePassword::genPernouncable(int length, int amount)
     for(int c = 0; c < amount; c++)
     {
         QString password;
-        int cvwl, ccon; //Counts for vowel and constinate
+        int cvwl = 0, ccon = 0; //Counts for vowel and constinate
         QList<int> digits;
 
         // Pick number count and positions
