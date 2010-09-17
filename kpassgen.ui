@@ -349,7 +349,7 @@ p, li { white-space: pre-wrap; }
               <string>The number of passwords to generate at a time</string>
              </property>
              <property name="minimum">
-              <number>10</number>
+              <number>1</number>
              </property>
              <property name="maximum">
               <number>100</number>
@@ -446,12 +446,12 @@ p, li { white-space: pre-wrap; }
    <slot>setCurrentIndex(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>486</x>
-     <y>24</y>
+     <x>456</x>
+     <y>30</y>
     </hint>
     <hint type="destinationlabel">
-     <x>600</x>
-     <y>56</y>
+     <x>447</x>
+     <y>104</y>
     </hint>
    </hints>
   </connection>
@@ -462,12 +462,12 @@ p, li { white-space: pre-wrap; }
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>586</x>
-     <y>458</y>
+     <x>456</x>
+     <y>453</y>
     </hint>
     <hint type="destinationlabel">
-     <x>628</x>
-     <y>399</y>
+     <x>456</x>
+     <y>420</y>
     </hint>
    </hints>
   </connection>
