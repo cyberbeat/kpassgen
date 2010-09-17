@@ -48,8 +48,10 @@ QStringList GeneratePassword::genRandom(int length, QString &characterset,
         QString cs = characterset;
 
         while (password.length() < length) {
+            // Pick a random character
             int index = Random::nextInt(cs.length());
             password.append(cs[index]);
+            // Remove chosen character if Unique flag passed
             if (flags & Unique) {
                 cs.remove(index, 1);
             }
