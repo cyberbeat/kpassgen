@@ -62,7 +62,7 @@ QStringList GeneratePassword::genRandom(int length, QString &characterset,
     return passwordList;
 }
 
-QStringList GeneratePassword::genPernouncable(int length, int amount)
+QStringList GeneratePassword::genPernouncable(int length, bool upper, bool number, int amount)
 {
     QStringList passlist;
 
@@ -70,40 +70,76 @@ QStringList GeneratePassword::genPernouncable(int length, int amount)
     {
         QString password;
         int cvwl = 0, ccon = 0; //Counts for vowel and constinate
-        QList<int> digits;
+        QList<int> digitsList;
+        QList<int> upperList;
 
         // Pick number count and positions
-        {
+        if (number) {
+          
             int numdidgets = Random::nextUInt(1, qMax(length/6, 1));
             for (int i = 0; i < numdidgets; i++) {
-                digits.append(Random::nextUInt(length));
+                digitsList.append(Random::nextUInt(length));
             }
         }
+        
+        // Pick upper count and positions
+        if (upper) {
+            int numupper = Random::nextUInt(1, qMax(length/6, 1));
+            for (int i = 0; i < numupper; i++) {
+                int num = 0;
+                do {
+                    num = Random::nextUInt(length);
+                } while(digitsList.contains(num));
+                upperList.append(num);
+            }
+        }
+        QString msg;
+        foreach(int num, upperList) {
+            msg += QString("%1").arg(num);
+        }
+        
+        kDebug() << "upperList : " << msg;
 
         for(int i=0; i<length; i++) {
             // if number pick number
-            if (digits.contains(i)) {
+            if (digitsList.contains(i)) {
                 password.append(num.at(Random::nextUInt(num.length())));
             }
             // else if cvwl > 1 pick const; reset counters
             else if (cvwl > 0) {
-                password.append(con.at(Random::nextUInt(con.length())));
+                if (upperList.contains(i)) {
+                    password.append(con.at(Random::nextUInt(con.length())).toUpper());
+                } else {
+                    password.append(con.at(Random::nextUInt(con.length())));
+                }
                 ccon = 1;
                 cvwl = 0;
             }
             // else if ccon > 1 pick vowel; reset counters
             else if (ccon > 1) {
-                password.append(vwl.at(Random::nextUInt(vwl.length())));
+                if (upperList.contains(i)) {
+                    password.append(vwl.at(Random::nextUInt(vwl.length())).toUpper());
+                } else {
+                    password.append(vwl.at(Random::nextUInt(vwl.length())));
+                }
                 ccon = 0;
                 cvwl = 1;
             }
             // else pick random letter or vowel
             else {
                 if (Random::nextUInt(2)) {
-                    password.append(con.at(Random::nextUInt(con.length())));
+                    if (upperList.contains(i)) {
+                        password.append(con.at(Random::nextUInt(con.length())).toUpper());
+                    } else {
+                        password.append(con.at(Random::nextUInt(con.length())));
+                    }
                     ccon++;
                  } else {
-                    password.append(vwl.at(Random::nextUInt(vwl.length())));
+                    if (upperList.contains(i)) {
+                        password.append(vwl.at(Random::nextUInt(vwl.length())).toUpper());
+                    } else {
+                        password.append(vwl.at(Random::nextUInt(vwl.length())));
+                    }
                     cvwl++;
                 }
             }

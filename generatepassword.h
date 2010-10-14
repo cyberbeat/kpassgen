@@ -36,7 +36,7 @@ public:
 
     static QStringList genRandom(int length, QString &characterset,
                             int amount, QFlags<Option> &flag);
-    static QStringList genPernouncable(int length, int amount);
+    static QStringList genPernouncable(int length, bool upper, bool number, int amount);
 //    static QString genHex(int length, QString &characterset);
 };
 

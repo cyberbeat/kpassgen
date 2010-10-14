@@ -133,6 +133,8 @@ void KPassGen::genPass() {
         break;
     case 2:
         passlist = GeneratePassword::genPernouncable(ui->spinLength->value(),
+                                                     ui->checkPrenUpper->isChecked(),
+                                                     ui->checkPernNumber->isChecked(),
                                                      ui->spinAmount->value());
         break;
     }

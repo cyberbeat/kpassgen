@@ -20,12 +20,28 @@
 #include <limits>
 #include <time.h>
 #include <QtGlobal>
+#include <QFile>
+#include <qdatastream.h>
+#include <KDebug>
 
 class Random
 {
 public:
-    static void init()         { qsrand(time(NULL)); }
-    static void init(int seed) { qsrand(seed); }
+    static void init() {
+        kDebug() << "Test1";
+        QFile urandom("/dev/urandom");
+        int seed  = time(NULL);
+        if (urandom.open(QIODevice::ReadOnly)){
+            QDataStream stream(&urandom);
+            stream >> seed;
+            // seed << stream;
+        }
+        QTextStream(stdout) << "seed: " << seed << endl;
+        qsrand(seed);
+    }
+    static void init(int seed) { 
+        kDebug() << "Test3";
+      qsrand(seed); }
 
     static int nextInt() { return qrand(); }
     static int nextInt(int max) { return qrand() % max; }
