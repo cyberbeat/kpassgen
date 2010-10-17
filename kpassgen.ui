@@ -79,7 +79,7 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,0">
+    <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0">
      <item>
       <widget class="PasswordList" name="listPasswords"/>
      </item>
@@ -95,7 +95,7 @@
            </sizepolicy>
           </property>
           <property name="currentIndex">
-           <number>2</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="page">
            <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -301,7 +301,7 @@ p, li { white-space: pre-wrap; }
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_10">
                <item>
-                <widget class="QCheckBox" name="checkPrenUpper">
+                <widget class="QCheckBox" name="checkPernUpper">
                  <property name="text">
                   <string>Include Uppercase</string>
                  </property>
@@ -317,6 +317,13 @@ p, li { white-space: pre-wrap; }
                  </property>
                  <property name="checked">
                   <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="checkPernUnam">
+                 <property name="text">
+                  <string>Unambiguous</string>
                  </property>
                 </widget>
                </item>

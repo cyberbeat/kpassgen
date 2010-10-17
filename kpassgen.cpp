@@ -80,6 +80,9 @@ void KPassGen::writeSettings()
     Settings::setHexLower(ui->radioHexLower->isChecked());
     Settings::setAmount(ui->spinAmount->value());
     Settings::setLength(ui->spinLength->value());
+    Settings::setPernUpper(ui->checkPernUpper->isChecked());
+    Settings::setPernNumber(ui->checkPernNumber->isChecked());
+    Settings::setPernUnambigous(ui->checkPernUnam->isChecked());
 }
 
 void KPassGen::readSettings()
@@ -98,6 +101,9 @@ void KPassGen::readSettings()
     ui->spinAmount->setValue(Settings::amount());
     ui->spinLength->setValue(Settings::length());
     ui->listPasswords->setMonoFont(Settings::monoFont());
+    ui->checkPernUpper->setChecked(Settings::pernUpper());
+    ui->checkPernNumber->setChecked(Settings::pernNumber());
+    ui->checkPernUnam->setChecked(Settings::pernUnambigous());
     pageIndexChanged(ui->comboType->currentIndex());
 }
 
@@ -132,13 +138,21 @@ void KPassGen::genPass() {
                     ui->spinAmount->value(), flags);
         break;
     case 2:
+        if (ui->checkPernUnam->isChecked())
+            flags |= GeneratePassword::Unambiguous;
+
+        if (ui->checkPernNumber->isChecked())
+            flags |= GeneratePassword::Number;
+
+        if (ui->checkPernUpper->isChecked())
+            flags |= GeneratePassword::Upper;
+
         passlist = GeneratePassword::genPernouncable(ui->spinLength->value(),
-                                                     ui->checkPrenUpper->isChecked(),
-                                                     ui->checkPernNumber->isChecked(),
-                                                     ui->spinAmount->value());
+                                                     ui->spinAmount->value(),
+                                                     flags
+                                                    );
         break;
     }
-
 
     ui->listPasswords->replace(passlist);
     emit passwordsChanged();
@@ -146,7 +160,6 @@ void KPassGen::genPass() {
 
 void KPassGen::pageIndexChanged(int index)
 {
-    kDebug() << "index: " << index;
     switch(index) {
     case 0:
         alphaUpdate();
@@ -154,6 +167,8 @@ void KPassGen::pageIndexChanged(int index)
     case 1:
         ui->spinLength->setMaximum(1024);
         break;
+    case 2:
+        ui->spinLength->setMaximum(1024);
     }
 }
 

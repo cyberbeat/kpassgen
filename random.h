@@ -36,11 +36,9 @@ public:
             stream >> seed;
             // seed << stream;
         }
-        QTextStream(stdout) << "seed: " << seed << endl;
         qsrand(seed);
     }
     static void init(int seed) { 
-        kDebug() << "Test3";
       qsrand(seed); }
 
     static int nextInt() { return qrand(); }
