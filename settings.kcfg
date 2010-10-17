@@ -35,39 +35,25 @@
         <entry name="alphaCustomText" type="String">
             <label>A custom set of characters</label>
         </entry>
-        <!--
-            <entry name="characterList" type="StringList">
-                <label>List of all characters</label>
-                <default code="true">QStringList() &lt;&lt;"abcdefghijklmnopqrstuvwxyz" &lt;&lt;
-                "ABCDEFGHIJKLMNOPQRSTUVWXYZ" &lt;&lt;
-                "0123456789" &lt;&lt;
-                "!\&quot;&amp;&lt;&gt;&apos;#$%()*+,-./:;=?@[\\]^_`{|}~" &lt;&lt;
-                "" &lt;&lt; ""</default>
-            </entry>
-            <entry name="minimumList" type="IntList">
-                <label>List of minimum values</label>
-                <default>0,0,0,0,0,0</default>
-            </entry>
-            <entry name="checkedList" type="IntList">
-                <label>A list of the checked state</label>
-                <default>2,2,2,0,0,0</default>
-            </entry>
-            <entry name="simple" type="Bool">
-                <label>Generate simple passwords</label>
-                <default>false</default>
-            </entry>
-            <entry name="simpleTolerence" type="Int">
-                <label>Simple password tolerence</label>
-                <min>1</min>
-                <max>5</max>
-                <default>3</default>
-            </entry>
-        -->
     </group>
     <group name ="hexpage">
         <entry name="hexLower" type="Bool">
             <label>Include lower case letters, a-f</label>
             <default>true</default>
+        </entry>
+    </group>
+    <group name ="pernpage">
+        <entry name="pernUpper" type="Bool">
+            <label>Include uppwer case letters, A-Z</label>
+            <default>true</default>
+        </entry>
+        <entry name="pernNumber" type="Bool">
+            <label>Include numbers, 0-9</label>
+            <default>true</default>
+        </entry>
+        <entry name="pernUnambigous" type="Bool">
+            <label>Exclude similar characters</label>
+            <default>false</default>
         </entry>
     </group>
     <group name ="generaloptions">
@@ -85,7 +71,6 @@
         </entry>
         <entry name="optionsVisable" type="Bool">
             <label>If the options are hidden or not</label>
-            <default>false</default>
         </entry>
         <entry name="monoFont" type="Bool">
             <label>Use mono spaced fonts or not</label>

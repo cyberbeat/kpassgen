@@ -23,6 +23,7 @@
 #include <QObject>
 #include <QString>
 #include <QFlags>
+#include <QChar>
 
 
 class GeneratePassword : public QObject
@@ -31,13 +32,18 @@ class GeneratePassword : public QObject
 public:
     enum Option { None        = 0x0,
                   Unique      = 0x1,
-                  Unambiguous = 0x2 };
+                  Unambiguous = 0x2,
+                  Upper       = 0x4,
+                  Number      = 0x8
+    };
     Q_DECLARE_FLAGS(Options, Option)
 
     static QStringList genRandom(int length, QString &characterset,
                             int amount, QFlags<Option> &flag);
-    static QStringList genPernouncable(int length, bool upper, bool number, int amount);
+    static QStringList genPernouncable(int length, int amount, QFlags<Option> &flags);
 //    static QString genHex(int length, QString &characterset);
+private:
+    static QChar getChar(const QString &list, bool upper, bool unambigous);
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(GeneratePassword::Options)
