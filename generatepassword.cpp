@@ -69,6 +69,8 @@ QStringList GeneratePassword::genPernouncable(int length, int amount, QFlags<Opt
     bool number     = flags & Number;
     bool upper      = flags & Upper;
     bool unambigous = flags & Unambiguous;
+    
+    kDebug() << "Unambiguous: " << unambigous;
 
     for(int c = 0; c < amount; c++)
     {
@@ -141,16 +143,12 @@ QStringList GeneratePassword::genPernouncable(int length, int amount, QFlags<Opt
 QChar GeneratePassword::getChar(const QString &list, bool upper, bool unambigous)
 {
     QString charlist = list;
-    
-    if (unambigous) {
-        foreach (QChar c, amb) {
-            charlist.remove(c);
+    QChar picked;
+    do {
+        picked = charlist.at(Random::nextUInt(charlist.length()));
+        if (upper) {
+            picked = picked.toUpper();
         }
-    }
-    
-    QChar picked = charlist.at(Random::nextUInt(charlist.length()));
-    if (upper) {
-        picked = picked.toUpper();
-    }
+    } while (!amb.contains(picked));
     return picked;
 }

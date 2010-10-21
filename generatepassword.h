@@ -39,8 +39,8 @@ public:
     Q_DECLARE_FLAGS(Options, Option)
 
     static QStringList genRandom(int length, QString &characterset,
-                            int amount, QFlags<Option> &flag = QFlags<Option>);
-    static QStringList genPernouncable(int length, int amount, QFlags<Option> &flags = QFlags<Option>);
+                                 int amount, QFlags<Option> &flags);
+    static QStringList genPernouncable(int length, int amount, QFlags<Option> &flags);
 //    static QString genHex(int length, QString &characterset);
 private:
     static QChar getChar(const QString &list, bool upper, bool unambigous);
