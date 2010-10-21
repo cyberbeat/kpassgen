@@ -31,7 +31,7 @@
 const QString con("bcdfghjklmnpqrstvwxz");
 const QString vwl("aeiouy");
 const QString num("0123456789");
-const QString amb("oO0iI1lB82zZ");
+const QString amb("B8G6I1l0OQDS5Z");
 
 QStringList GeneratePassword::genRandom(int length, QString &characterset,
                                        int amount, QFlags<Option> &flags)
