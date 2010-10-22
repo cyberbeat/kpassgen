@@ -32,7 +32,7 @@ int main (int argc, char *argv[])
 			"kpassgen",					//appName
 			"kpassgen",					//catalogName
 			ki18n("KPassGen"),			//programName
-			"1.2",                      //version
+			"1.3",                      //version
 			ki18n("Generates a set of random passwords of any "
 				  "length that can include the letter a-z, A-Z"
 				  " any number and symbols and any other character "
