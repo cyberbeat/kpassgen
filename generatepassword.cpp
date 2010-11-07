@@ -145,6 +145,6 @@ QChar GeneratePassword::getChar(const QString &list, bool upper, bool unambigous
         if (upper) {
             picked = picked.toUpper();
         }
-    } while (amb.contains(picked));
+    } while (amb.contains(picked) && unambigous);
     return picked;
 }
