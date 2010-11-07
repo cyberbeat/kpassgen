@@ -105,13 +105,13 @@ QStringList GeneratePassword::genPernouncable(int length, int amount, QFlags<Opt
                 cvwl = 0;
             }
             // else if cvwl > 1 pick const; reset counters
-            else if (cvwl > 0) {
+            else if (cvwl > 1) {
                 password.append(getChar(con, ulist, unambigous));
                 ccon = 1;
                 cvwl = 0;
             }
             // else if ccon > 1 pick vowel; reset counters
-            else if (ccon > 1) {
+            else if (ccon > 2) {
                 password.append(getChar(vwl, ulist, unambigous));
                 ccon = 0;
                 cvwl = 1;
@@ -120,10 +120,12 @@ QStringList GeneratePassword::genPernouncable(int length, int amount, QFlags<Opt
             else {
                 if (Random::nextUInt(2)) {
                     password.append(getChar(vwl, ulist, unambigous));
-                    ccon++;
+                    cvwl++;
+                    ccon = 0;
                  } else {
                     password.append(getChar(con, ulist, unambigous));
-                    cvwl++;
+                    ccon++;
+                    cvwl = 0;
                 }
             }
         } /* end of password */
