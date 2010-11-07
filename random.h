@@ -28,10 +28,10 @@ class Random
 {
 public:
     static void init() {
-        kDebug() << "Test1";
         QFile urandom("/dev/urandom");
         int seed  = time(NULL);
         if (urandom.open(QIODevice::ReadOnly)){
+            kDebug() << "urandom found";
             QDataStream stream(&urandom);
             stream >> seed;
             // seed << stream;

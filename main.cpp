@@ -41,7 +41,6 @@ int main (int argc, char *argv[])
 			ki18n("Copyright (c) 2009 Michael Daffin") );
 	KCmdLineArgs::init( argc, argv, &aboutData );
 
-    kDebug() << "tttffDF";
 	Random::init();
 
 	KApplication app;

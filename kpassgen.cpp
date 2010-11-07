@@ -21,7 +21,6 @@
 #include "settings.h"
 
 #include <QStringList>
-#include <KDebug>
 
 const QString lowercaseset("abcdefghijklmnopqrstuvwxyz");
 const QString uppercaseset("ABCDEFGHIJKLMNOPQRSTUVWXYZ");

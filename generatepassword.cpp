@@ -19,8 +19,6 @@
 #include "settings.h"
 #include "random.h"
 
-#include <KDebug>
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -70,8 +68,6 @@ QStringList GeneratePassword::genPernouncable(int length, int amount, QFlags<Opt
     bool upper      = flags & Upper;
     bool unambigous = flags & Unambiguous;
     
-    kDebug() << "Unambiguous: " << unambigous;
-
     for(int c = 0; c < amount; c++)
     {
         QString password;
