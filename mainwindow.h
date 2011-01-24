@@ -36,13 +36,13 @@ private slots:
     void enableCopy(bool b = true);
 
 private:
-	void setupActions();
-	void setupConfig();
+    void setupActions();
+    void setupConfig();
 
-	KPassGen *passwidget;
+    KPassGen *passwidget;
 
 protected:
-	void closeEvent(QCloseEvent* e);
+    void closeEvent(QCloseEvent* e);
 };
 
 #endif // MAINWINDOW_H

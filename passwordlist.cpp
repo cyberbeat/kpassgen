@@ -1,19 +1,19 @@
 /*
-	Copyright 2009 Michael Daffin <james1479@googlemail.com>
+    Copyright 2009 Michael Daffin <james1479@googlemail.com>
 
-	This program is free software; you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation; either version 2 of the License, or
-	(at your option) any later version.
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
 
-	This program is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-	You should have received a copy of the GNU General Public License
-	along with this program; if not, write to the Free Software
-	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 #include "passwordlist.h"
 #include "passwordwidget.h"
@@ -27,11 +27,11 @@
 
 PasswordList::PasswordList(QWidget *parent) : KListWidget(parent)
 {
-	setAutoScroll(true);
-	setDragEnabled(true);
-	setItemDelegate(new PasswordWidget(this));
-	setAlternatingRowColors(true);
-	setContextMenuPolicy(Qt::ActionsContextMenu);
+    setAutoScroll(true);
+    setDragEnabled(true);
+    setItemDelegate(new PasswordWidget(this));
+    setAlternatingRowColors(true);
+    setContextMenuPolicy(Qt::ActionsContextMenu);
 }
 
 void PasswordList::replace(QStringList &passlist)
@@ -72,42 +72,42 @@ void PasswordList::setMonoFont(bool b)
 
 void PasswordList::mousePressEvent(QMouseEvent *event)
 {
-	if (event->button() == Qt::LeftButton)
-		dragStartPos = event->pos();
-	QListWidget::mousePressEvent(event);
+    if (event->button() == Qt::LeftButton)
+        dragStartPos = event->pos();
+    QListWidget::mousePressEvent(event);
 }
 
 
 void PasswordList::mouseMoveEvent(QMouseEvent *event)
 {
-	if (event->buttons() & Qt::LeftButton) {
-		int distance = (event->pos() - dragStartPos).manhattanLength();
-		if (distance >= QApplication::startDragDistance())
-			preformDrag();
-	}
+    if (event->buttons() & Qt::LeftButton) {
+        int distance = (event->pos() - dragStartPos).manhattanLength();
+        if (distance >= QApplication::startDragDistance())
+            preformDrag();
+    }
 //	QListWidget::mouseMoveEvent(event);
 }
 
 void PasswordList::preformDrag()
 {
-	QListWidgetItem *item = currentItem();
-	if (item) {
-		QString pass = item->text();
-		QMimeData *mimeData = new QMimeData;
-		mimeData->setText(pass);
+    QListWidgetItem *item = currentItem();
+    if (item) {
+        QString pass = item->text();
+        QMimeData *mimeData = new QMimeData;
+        mimeData->setText(pass);
 
         if (pass.length() > 26) {
             pass.truncate(23);
             pass.append("...");
         }
         QLabel label(pass);
-		label.resize(label.sizeHint());
-		QPixmap pixmap(label.size());
-		label.render(&pixmap);
+        label.resize(label.sizeHint());
+        QPixmap pixmap(label.size());
+        label.render(&pixmap);
 
-		QDrag *drag = new QDrag(this);
-		drag->setMimeData(mimeData);
-		drag->setPixmap(pixmap);
-		drag->exec();
-	}
+        QDrag *drag = new QDrag(this);
+        drag->setMimeData(mimeData);
+        drag->setPixmap(pixmap);
+        drag->exec();
+    }
 }

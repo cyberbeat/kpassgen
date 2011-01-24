@@ -6,7 +6,7 @@
 #include <QPainter>
 
 PasswordWidget::PasswordWidget(QObject *parent) :
-	QItemDelegate(parent), reasonablePasswordLength(12) { }
+    QItemDelegate(parent), reasonablePasswordLength(12) { }
 
 void PasswordWidget::paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
@@ -14,15 +14,15 @@ void PasswordWidget::paint(QPainter* painter, const QStyleOptionViewItem& option
 
     int progress = getStrength(index.data(Qt::DisplayRole).toString());
     // Draws teh progress bar
-	QStyleOptionProgressBar bar;
-	QRect rect = option.rect;
-	rect.setLeft(rect.right() - 100);
-	bar.rect = rect;
-	bar.minimum = 0;
-	bar.maximum = 100;
-	bar.progress = progress;
-	bar.textVisible = false;
-	QApplication::style()->drawControl(QStyle::CE_ProgressBar, &bar, painter, 0);
+    QStyleOptionProgressBar bar;
+    QRect rect = option.rect;
+    rect.setLeft(rect.right() - 100);
+    bar.rect = rect;
+    bar.minimum = 0;
+    bar.maximum = 100;
+    bar.progress = progress;
+    bar.textVisible = false;
+    QApplication::style()->drawControl(QStyle::CE_ProgressBar, &bar, painter, 0);
 
 }
 

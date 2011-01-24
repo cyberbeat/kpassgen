@@ -16,15 +16,13 @@ public:
                         const QModelIndex &index) const;
 
     int getStrength(const QString &pass) const;
+    
 public slots:
-
 
 private:
     int effectivePasswordLength(const QString &password) const;
-
+    
     int reasonablePasswordLength;
-//    QLabel *m_text;
-//    QProgressBar *m_strengthbar;
 
 };
 
