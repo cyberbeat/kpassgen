@@ -9,6 +9,7 @@
   <MenuBar>
     <Menu name="file" >
       <Action name="edit-copy" />
+      <Action name="edit-clear" />
       <Action name="monoToggle" />
     </Menu>
   </MenuBar>

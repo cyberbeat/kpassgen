@@ -32,7 +32,7 @@ public:
 
 public slots:
 	void copy(int index = -1);
-	void setMonoFont(bool b = false);
+        void setMonoFont(bool b = false);
 
 private:
 	void mousePressEvent(QMouseEvent *event);

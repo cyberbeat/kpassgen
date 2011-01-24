@@ -228,6 +228,11 @@ void KPassGen::copy(int index)
     ui->listPasswords->copy(index);
 }
 
+void KPassGen::clear()
+{
+    ui->listPasswords->clear();
+}
+
 void KPassGen::setMonoFont(bool b)
 {
     ui->listPasswords->setMonoFont(b);

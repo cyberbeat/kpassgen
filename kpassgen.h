@@ -41,6 +41,7 @@ private slots:
     void alphaUpdate();
     void uniqueToggle(bool unique);
     void copy(int index = -1);
+    void clear();
     void setMonoFont(bool b = false);
     void setCopyEnabled(bool b = true);
 
