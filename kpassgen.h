@@ -43,6 +43,8 @@ private slots:
     void copy(int index = -1);
     void clear();
     void setMonoFont(bool b = false);
+    
+public slots:
     void setCopyEnabled(bool b = true);
 
 signals:

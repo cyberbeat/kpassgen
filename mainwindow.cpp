@@ -50,9 +50,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::enableCopy(bool b)
 {
-    kDebug() << "bool: " << b;
     actionCollection()->action("edit-copy")->setEnabled(b);
     actionCollection()->action("edit-clear")->setEnabled(b);
+    passwidget->setCopyEnabled(b);
 }
 
 void MainWindow::disableCopy(bool b)
