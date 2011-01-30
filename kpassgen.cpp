@@ -165,9 +165,11 @@ void KPassGen::pageIndexChanged(int index)
         break;
     case 1:
         ui->spinLength->setMaximum(1024);
+        ui->spinLength->setMinimum(1);
         break;
     case 2:
         ui->spinLength->setMaximum(1024);
+        ui->spinLength->setMinimum(3);
     }
 }
 
@@ -208,6 +210,7 @@ void KPassGen::alphaUpdate()
         ui->checkAlphaCustom->setEnabled(true);
     }
     uniqueToggle(ui->checkAlphaUnique->isChecked());
+    ui->spinLength->setMinimum(1);
 }
 
 void KPassGen::uniqueToggle(bool unique)
@@ -231,6 +234,7 @@ void KPassGen::copy(int index)
 void KPassGen::clear()
 {
     ui->listPasswords->clear();
+    emit passwordsCleared();
 }
 
 void KPassGen::setMonoFont(bool b)

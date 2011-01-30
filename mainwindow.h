@@ -34,9 +34,11 @@ public:
 
 private slots:
     void enableCopy(bool b = true);
+    void disableCopy(bool b = true);
 
 private:
     void setupActions();
+    void setupContextMenu();
     void setupConfig();
 
     KPassGen *passwidget;

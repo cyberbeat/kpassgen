@@ -47,6 +47,7 @@ private slots:
 
 signals:
     void passwordsChanged();
+    void passwordsCleared();
 
 protected:
     void changeEvent(QEvent *e);

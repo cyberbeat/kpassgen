@@ -48,11 +48,10 @@ void PasswordList::copy(int index)
     if (index < 0 || index >= count()) {
         if (currentRow() < 0)
             setCurrentRow(0);
-        index = currentRow();
     } else {// otherwise select that item
         setCurrentRow(index);
     }
-
+    if (!currentItem()) return;
     QString password = currentItem()->text();
 
     QClipboard *cb = QApplication::clipboard();

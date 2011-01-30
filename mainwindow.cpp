@@ -36,10 +36,12 @@ MainWindow::MainWindow(QWidget *parent) :
     setCentralWidget(passwidget);
 
     setupActions();
+    setupContextMenu();
 
     setupGUI(Create | Save);
 
     connect(passwidget, SIGNAL(passwordsChanged()), this, SLOT(enableCopy()));
+    connect(passwidget, SIGNAL(passwordsCleared()), this, SLOT(disableCopy()));
 }
 
 MainWindow::~MainWindow()
@@ -48,7 +50,14 @@ MainWindow::~MainWindow()
 
 void MainWindow::enableCopy(bool b)
 {
+    kDebug() << "bool: " << b;
     actionCollection()->action("edit-copy")->setEnabled(b);
+    actionCollection()->action("edit-clear")->setEnabled(b);
+}
+
+void MainWindow::disableCopy(bool b)
+{
+    enableCopy(!b);
 }
 
 void MainWindow::setupActions()
@@ -64,6 +73,7 @@ void MainWindow::setupActions()
     clearAction->setText(i18n("Clear &Passwords"));
     clearAction->setIcon(KIcon("edit-clear"));
     clearAction->setShortcut(KShortcut("Ctrl+D"));
+    clearAction->setEnabled(false);
     actionCollection()->addAction("edit-clear", clearAction);
 
     KAction* monoToggle = new KAction(this);
@@ -75,6 +85,13 @@ void MainWindow::setupActions()
     connect(copyAction, SIGNAL(triggered()), passwidget, SLOT(copy()));
     connect(clearAction, SIGNAL(triggered()), passwidget, SLOT(clear()));
     connect(monoToggle, SIGNAL(toggled(bool)), passwidget, SLOT(setMonoFont(bool)));
+}
+
+void MainWindow::setupContextMenu()
+{
+    passwidget->addAction(actionCollection()->action("edit-copy"));
+    passwidget->addAction(actionCollection()->action("edit-clear"));
+    passwidget->setContextMenuPolicy(Qt::ActionsContextMenu);
 }
 
 void MainWindow::setupConfig()
