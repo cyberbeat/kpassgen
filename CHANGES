@@ -1,0 +1,51 @@
+20 January 2011, Version 1.4:
+- Added a context menu to the password list to make it quicker to copy passwords
+- Added an option to clear the password list.
+
+7 November 2010, Version 1.3:
+- Added options to the pronounceable password generator (You can now toggle numbers and uppercase)
+- Small improvments to the pronounceable password algorithem.
+- Now uses /dev/urandom + time as a seed if /dev/urandom is availble (otherwise just sues the time)
+
+17 September 2010, Version 1.2:
+- Added (basic) pronounceable passwords.
+- Fixed an issue with the strength bar overlapping the passwords when the length of the password was larger then the window.
+- Larger passwords are now truncated when displayed during a drag and drop.
+- Lowered the minimum number of passwords to generate from 10 to 1.
+
+7 September 2010, Version 1.1:
+- Added a password strength indicator based of the one in KWallet.
+
+4 September 2010, Version 1.0:
+- Rewrote almost everything. :)
+- New UI, cleaner/simpler and better organised.
+- Added a Unique Characters Only option.
+- Added a Ambiguous Option.
+
+10 September 2009, Version 0.7:
+- Changed alphanumerical page, now uses a qtablewidget.
+- Minimum numbers for each character set introduced, you can now set a minimum number for each set of characters for alpha numerical passwords.
+- Added mono spaced font option (right click the password box).
+- Converted options page to use .ui file.
+
+18 August 2009, Version 0.6:
+- Implemented drag and drop of passwords.
+- Settings auto-save and load on program start/exit.
+
+14 August 2009, Version 0.5:
+- Added (basic) simple password mode support.
+- Reworked alot of the code.
+
+1 August 2009, Version 0.4:
+- Reworked UI, options are now hidden by default.
+- Added support for custom letters/symbols.
+- Reworked code.
+
+24 July 2009, Version 0.3:
+- Hex values added, selecting hex disables other values.
+- Copying to clipboard now implemented.
+- Reworked some code.
+
+23 July 2009, Version 0.2:
+- Lower case letter can now be unselected when at least one of the other check boxes are checked.
+- Maximum length of passwords increased from 100 to 999. 
