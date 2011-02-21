@@ -411,7 +411,7 @@ p, li { white-space: pre-wrap; }
         </sizepolicy>
        </property>
        <property name="text">
-        <string>&amp;Generate</string>
+        <string>&amp;Generate Passwords</string>
        </property>
       </widget>
      </item>
