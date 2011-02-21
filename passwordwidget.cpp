@@ -1,4 +1,5 @@
 #include "passwordwidget.h"
+#include "common.h"
 
 #include <QHBoxLayout>
 #include <QLabel>
@@ -58,7 +59,6 @@ int PasswordWidget::effectivePasswordLength(const QString &password) const
     };
 
     Category previousCategory = Vowel;
-    QString vowels("aeiou");
     int count = 0;
 
     for (int i = 0; i < password.length(); ++i) {
@@ -70,7 +70,7 @@ int PasswordWidget::effectivePasswordLength(const QString &password) const
                     currentCategory = Upper;
                     break;
                 case QChar::Letter_Lowercase:
-                    if (vowels.contains(currentChar)) {
+                    if (vwl.contains(currentChar)) {
                         currentCategory = Vowel;
                     } else {
                         currentCategory = Consonant;

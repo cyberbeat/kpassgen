@@ -18,6 +18,7 @@
 #include "generatepassword.h"
 #include "settings.h"
 #include "random.h"
+#include "common.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -25,11 +26,6 @@
 #include <sys/types.h>
 #include <sys/times.h>
 #include <argp.h>
-
-const QString con("bcdfghjklmnpqrstvwxz");
-const QString vwl("aeiouy");
-const QString num("0123456789");
-const QString amb("B8G6I1l0OQDS5Z");
 
 QStringList GeneratePassword::genRandom(int length, QString &characterset,
                                        int amount, QFlags<Option> &flags)
@@ -100,30 +96,30 @@ QStringList GeneratePassword::genPernouncable(int length, int amount, QFlags<Opt
             bool ulist = upperList.contains(i);
             // if number pick number
             if (digitsList.contains(i)) {
-                password.append(getChar(num, false, unambigous));
+                password.append(getChar(number_set, false, unambigous));
                 ccon = 0;
                 cvwl = 0;
             }
             // else if cvwl > 1 pick const; reset counters
             else if (cvwl > 1) {
-                password.append(getChar(con, ulist, unambigous));
+                password.append(getChar(consonant_set, ulist, unambigous));
                 ccon = 1;
                 cvwl = 0;
             }
             // else if ccon > 1 pick vowel; reset counters
             else if (ccon > 2) {
-                password.append(getChar(vwl, ulist, unambigous));
+                password.append(getChar(vowel_set, ulist, unambigous));
                 ccon = 0;
                 cvwl = 1;
             }
             // else pick random letter or vowel
             else {
                 if (Random::nextUInt(2)) {
-                    password.append(getChar(vwl, ulist, unambigous));
+                    password.append(getChar(vowel_set, ulist, unambigous));
                     cvwl++;
                     ccon = 0;
                  } else {
-                    password.append(getChar(con, ulist, unambigous));
+                    password.append(getChar(consonant_set, ulist, unambigous));
                     ccon++;
                     cvwl = 0;
                 }
@@ -147,6 +143,6 @@ QChar GeneratePassword::getChar(const QString &list, bool upper, bool unambigous
         if (upper) {
             picked = picked.toUpper();
         }
-    } while (amb.contains(picked) && unambigous);
+    } while (ambiguous_set.contains(picked) && unambigous);
     return picked;
 }

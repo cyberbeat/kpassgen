@@ -19,14 +19,10 @@
 #include "ui_kpassgen.h"
 #include "generatepassword.h"
 #include "settings.h"
-
+#include "common.h"
 #include <QStringList>
 
-const QString lowercaseset("abcdefghijklmnopqrstuvwxyz");
-const QString uppercaseset("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-const QString symbolset("¬`!\"£$%^&*()_+-={}[];'#:@~<>?,./|\\ ");
-const QString numberset("0123456789");
-const QString hexset("0123456789ABCDEF");
+
 
 KPassGen::KPassGen(QWidget *parent) :
     QWidget(parent),
@@ -128,9 +124,9 @@ void KPassGen::genPass() {
         break;
     case 1:
         if (ui->radioHexLower->isChecked())
-            characterset = hexset.toLower();
+            characterset = hex_set.toLower();
         else
-            characterset = hexset;
+            characterset = hex_set;
 
         passlist = GeneratePassword::genRandom(
                     ui->spinLength->value(), characterset,
@@ -148,8 +144,7 @@ void KPassGen::genPass() {
 
         passlist = GeneratePassword::genPernouncable(ui->spinLength->value(),
                                                      ui->spinAmount->value(),
-                                                     flags
-                                                    );
+                                                     flags);
         break;
     }
 
@@ -252,20 +247,20 @@ QString KPassGen::getCharacterSet()
     QString characterset;
 
     if (ui->checkAlphaLowercase->isChecked())
-        characterset += lowercaseset;
+        characterset += lowercase_set;
 
     if (ui->checkAlphaUppercase->isChecked())
-        characterset += uppercaseset;
+        characterset += uppercase_set;
 
     if (ui->checkAlphaSymbols->isChecked())
-        characterset += symbolset;
+        characterset += symbol_set;
 
     if (ui->checkAlphaNumbers->isChecked())
-        characterset += numberset;
+        characterset += number_set;
 
     if (ui->checkAlphaUnambiguous->isChecked())
-        for (int i = 0; i < ambiguous.length(); i++)
-            characterset.remove(ambiguous[i]);
+        for (int i = 0; i < ambiguous_set.length(); i++)
+            characterset.remove(ambiguous_set[i]);
 
     if (ui->checkAlphaCustom->isChecked())
         characterset += ui->lineAlphaCustom->text();
