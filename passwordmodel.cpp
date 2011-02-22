@@ -33,7 +33,7 @@ QVariant PasswordModel::data ( const QModelIndex& index, int role ) const
         if (column == 0) {
             return passwords.at(row);
         }
-        return QVariant(rand()%100);
+            return QVariant(rand()%100);
     }
     return QVariant();
 }
@@ -50,7 +50,24 @@ int PasswordModel::rowCount ( const QModelIndex& parent ) const
 
 QVariant PasswordModel::headerData ( int section, Qt::Orientation orientation, int role ) const
 {
-    return QAbstractItemModel::headerData ( section, orientation, role );
+    if (orientation != Qt::Horizontal || role != Qt::DisplayRole) return QVariant();
+    qDebug() << "Horizontal";
+    qDebug() << section;
+    if (section < 0 || section >= columnCount()) return QVariant();
+    qDebug() << "After";
+    
+    switch(section) {
+        case 0: 
+            qDebug() << "0";
+            return QVariant("Password");
+        
+        case 1: 
+            qDebug() << "1";
+            return QVariant("Strength");
+        default:
+            qDebug() << "Ahhh";
+    }
+    return QVariant();
 }
 
 Qt::ItemFlags PasswordModel::flags ( const QModelIndex& index ) const
