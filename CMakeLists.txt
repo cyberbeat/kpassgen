@@ -10,7 +10,7 @@ set(kpassgen_SRCS
     mainwindow.cpp
     kpassgen.cpp
     generatepassword.cpp
-    passwordlist.cpp
+    passwordview.cpp
     passwordwidget.cpp
     passwordmodel.cpp
 )

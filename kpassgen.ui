@@ -81,7 +81,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0">
      <item>
-      <widget class="PasswordList" name="passwordView">
+      <widget class="PasswordView" name="passwordView">
        <attribute name="verticalHeaderVisible">
         <bool>false</bool>
        </attribute>
@@ -469,9 +469,9 @@ p, li { white-space: pre-wrap; }
    <header>klineedit.h</header>
   </customwidget>
   <customwidget>
-   <class>PasswordList</class>
+   <class>PasswordView</class>
    <extends>QTableView</extends>
-   <header location="global">passwordlist.h</header>
+   <header location="global">passwordview.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

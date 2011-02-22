@@ -18,7 +18,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "passwordlist.h"
+#include "passwordview.h"
 
 #include <QStringList>
 
