@@ -14,10 +14,10 @@ void PasswordWidget::paint ( QPainter* painter, const QStyleOptionViewItem& opti
     QItemDelegate::paint(painter, option, index);
 
     int progress = index.data(Qt::DisplayRole).toInt();
-    // Draws teh progress bar
+    // Draws the progress bar
     QStyleOptionProgressBar bar;
     QRect rect = option.rect;
-    rect.setLeft(rect.right() - 100);
+    //rect.setLeft(rect.right() - 100);
     bar.rect = rect;
     bar.minimum = 0;
     bar.maximum = 100;
