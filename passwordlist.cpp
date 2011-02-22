@@ -25,63 +25,69 @@
 #include <QClipboard>
 #include <QProgressBar>
 
-PasswordList::PasswordList(QWidget *parent) : KListWidget(parent)
+PasswordList::PasswordList ( QWidget *parent ) : KListWidget ( parent )
 {
-    setAutoScroll(true);
-    setDragEnabled(true);
-    setItemDelegate(new PasswordWidget(this));
-    setAlternatingRowColors(true);
-    setContextMenuPolicy(Qt::ActionsContextMenu);
+    setAutoScroll ( true );
+    setDragEnabled ( true );
+    setItemDelegate ( new PasswordWidget ( this ) );
+    setAlternatingRowColors ( true );
+    setContextMenuPolicy ( Qt::ActionsContextMenu );
 }
 
-void PasswordList::replace(QStringList &passlist)
+void PasswordList::replace ( QStringList &passlist )
 {
     clear();
-    foreach(QString pass, passlist) {
-        new QListWidgetItem(pass, this);
+    foreach ( QString pass, passlist )
+    {
+        new QListWidgetItem ( pass, this );
     }
 }
 
-void PasswordList::copy(int index)
+void PasswordList::copy ( int index )
 {
     // Get an index of the current items if index is -1 or to large
-    if (index < 0 || index >= count()) {
-        if (currentRow() < 0)
-            setCurrentRow(0);
-    } else {// otherwise select that item
-        setCurrentRow(index);
+    if ( index < 0 || index >= count() )
+    {
+        if ( currentRow() < 0 )
+            setCurrentRow ( 0 );
     }
-    if (!currentItem()) return;
+    else  // otherwise select that item
+    {
+        setCurrentRow ( index );
+    }
+    if ( !currentItem() ) return;
     QString password = currentItem()->text();
 
     QClipboard *cb = QApplication::clipboard();
 
-    cb->setText(password, QClipboard::Clipboard);
+    cb->setText ( password, QClipboard::Clipboard );
 }
 
-void PasswordList::setMonoFont(bool b)
+void PasswordList::setMonoFont ( bool b )
 {
     QFont font;
-    if (b) {
-        font.setFamily("Monospace");
-        font.setStyleHint(QFont::TypeWriter);
+    if ( b )
+    {
+        font.setFamily ( "Monospace" );
+        font.setStyleHint ( QFont::TypeWriter );
     }
-    setFont(font);
+    setFont ( font );
 }
 
-void PasswordList::mousePressEvent(QMouseEvent *event)
+void PasswordList::mousePressEvent ( QMouseEvent *event )
 {
-    if (event->button() == Qt::LeftButton)
+    if ( event->button() == Qt::LeftButton )
         dragStartPos = event->pos();
-    QListWidget::mousePressEvent(event);
+    QListWidget::mousePressEvent ( event );
 }
 
 
-void PasswordList::mouseMoveEvent(QMouseEvent *event)
+void PasswordList::mouseMoveEvent ( QMouseEvent *event )
 {
-    if (event->buttons() & Qt::LeftButton) {
-        int distance = (event->pos() - dragStartPos).manhattanLength();
-        if (distance >= QApplication::startDragDistance())
+    if ( event->buttons() & Qt::LeftButton )
+    {
+        int distance = ( event->pos() - dragStartPos ).manhattanLength();
+        if ( distance >= QApplication::startDragDistance() )
             preformDrag();
     }
 //	QListWidget::mouseMoveEvent(event);
@@ -90,23 +96,25 @@ void PasswordList::mouseMoveEvent(QMouseEvent *event)
 void PasswordList::preformDrag()
 {
     QListWidgetItem *item = currentItem();
-    if (item) {
+    if ( item )
+    {
         QString pass = item->text();
         QMimeData *mimeData = new QMimeData;
-        mimeData->setText(pass);
+        mimeData->setText ( pass );
 
-        if (pass.length() > 26) {
-            pass.truncate(23);
-            pass.append("...");
+        if ( pass.length() > 26 )
+        {
+            pass.truncate ( 23 );
+            pass.append ( "..." );
         }
-        QLabel label(pass);
-        label.resize(label.sizeHint());
-        QPixmap pixmap(label.size());
-        label.render(&pixmap);
+        QLabel label ( pass );
+        label.resize ( label.sizeHint() );
+        QPixmap pixmap ( label.size() );
+        label.render ( &pixmap );
 
-        QDrag *drag = new QDrag(this);
-        drag->setMimeData(mimeData);
-        drag->setPixmap(pixmap);
+        QDrag *drag = new QDrag ( this );
+        drag->setMimeData ( mimeData );
+        drag->setPixmap ( pixmap );
         drag->exec();
     }
 }

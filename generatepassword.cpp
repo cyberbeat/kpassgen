@@ -27,44 +27,48 @@
 #include <sys/times.h>
 #include <argp.h>
 
-QStringList GeneratePassword::genRandom(int length, QString &characterset,
-                                       int amount, QFlags<Option> &flags)
+QStringList GeneratePassword::genRandom ( int length, QString &characterset,
+        int amount, QFlags<Option> &flags )
 {
     QStringList passwordList;
 
-    if (length > characterset.length() && flags & Unique) {
+    if ( length > characterset.length() && flags & Unique )
+    {
         kError() << "Length greater then characterset length, "
-                    "cannot generate unique passwords";
+        "cannot generate unique passwords";
         return QStringList();
     }
 
-    while (passwordList.length() < amount) {
+    while ( passwordList.length() < amount )
+    {
         QString password;
         QString cs = characterset;
 
-        while (password.length() < length) {
+        while ( password.length() < length )
+        {
             // Pick a random character
-            int index = Random::nextInt(cs.length());
-            password.append(cs[index]);
+            int index = Random::nextInt ( cs.length() );
+            password.append ( cs[index] );
             // Remove chosen character if Unique flag passed
-            if (flags & Unique) {
-                cs.remove(index, 1);
+            if ( flags & Unique )
+            {
+                cs.remove ( index, 1 );
             }
         }
-        passwordList.append(password);
+        passwordList.append ( password );
     }
 
     return passwordList;
 }
 
-QStringList GeneratePassword::genPernouncable(int length, int amount, QFlags<Option> &flags)
+QStringList GeneratePassword::genPernouncable ( int length, int amount, QFlags<Option> &flags )
 {
     QStringList passlist;
     bool number     = flags & Number;
     bool upper      = flags & Upper;
     bool unambigous = flags & Unambiguous;
-    
-    for(int c = 0; c < amount; c++)
+
+    for ( int c = 0; c < amount; c++ )
     {
         QString password;
         int cvwl = 0, ccon = 0; //Counts for vowel and constinate
@@ -72,61 +76,75 @@ QStringList GeneratePassword::genPernouncable(int length, int amount, QFlags<Opt
         QList<int> upperList;
 
         // Pick number count and positions
-        if (number) {
-            int numdidgets = Random::nextUInt(1, qMax(length/6, 1));
-            for (int i = 0; i < numdidgets; i++) {
-                digitsList.append(Random::nextUInt(length));
+        if ( number )
+        {
+            int numdidgets = Random::nextUInt ( 1, qMax ( length/6, 1 ) );
+            for ( int i = 0; i < numdidgets; i++ )
+            {
+                digitsList.append ( Random::nextUInt ( length ) );
             }
         }
-        
+
         // Pick upper count and positions
-        if (upper) {
-            int numupper = Random::nextUInt(1, qMax(length/6, 1));
-            for (int i = 0; i < numupper; i++) {
+        if ( upper )
+        {
+            int numupper = Random::nextUInt ( 1, qMax ( length/6, 1 ) );
+            for ( int i = 0; i < numupper; i++ )
+            {
                 int num = 0;
-                do {
-                    num = Random::nextUInt(length);
-                } while(digitsList.contains(num));
-                upperList.append(num);
+                do
+                {
+                    num = Random::nextUInt ( length );
+                }
+                while ( digitsList.contains ( num ) );
+                upperList.append ( num );
             }
         }
-        
+
         // Generate the password
-        for(int i=0; i<length; i++) {
-            bool ulist = upperList.contains(i);
+        for ( int i=0; i<length; i++ )
+        {
+            bool ulist = upperList.contains ( i );
             // if number pick number
-            if (digitsList.contains(i)) {
-                password.append(getChar(number_set, false, unambigous));
+            if ( digitsList.contains ( i ) )
+            {
+                password.append ( getChar ( number_set, false, unambigous ) );
                 ccon = 0;
                 cvwl = 0;
             }
             // else if cvwl > 1 pick const; reset counters
-            else if (cvwl > 1) {
-                password.append(getChar(consonant_set, ulist, unambigous));
+            else if ( cvwl > 1 )
+            {
+                password.append ( getChar ( consonant_set, ulist, unambigous ) );
                 ccon = 1;
                 cvwl = 0;
             }
             // else if ccon > 1 pick vowel; reset counters
-            else if (ccon > 2) {
-                password.append(getChar(vowel_set, ulist, unambigous));
+            else if ( ccon > 2 )
+            {
+                password.append ( getChar ( vowel_set, ulist, unambigous ) );
                 ccon = 0;
                 cvwl = 1;
             }
             // else pick random letter or vowel
-            else {
-                if (Random::nextUInt(2)) {
-                    password.append(getChar(vowel_set, ulist, unambigous));
+            else
+            {
+                if ( Random::nextUInt ( 2 ) )
+                {
+                    password.append ( getChar ( vowel_set, ulist, unambigous ) );
                     cvwl++;
                     ccon = 0;
-                 } else {
-                    password.append(getChar(consonant_set, ulist, unambigous));
+                }
+                else
+                {
+                    password.append ( getChar ( consonant_set, ulist, unambigous ) );
                     ccon++;
                     cvwl = 0;
                 }
             }
         } /* end of password */
 
-        passlist.append(password);
+        passlist.append ( password );
     } /* end of password group */
 
 
@@ -134,15 +152,18 @@ QStringList GeneratePassword::genPernouncable(int length, int amount, QFlags<Opt
 }
 
 
-QChar GeneratePassword::getChar(const QString &list, bool upper, bool unambigous)
+QChar GeneratePassword::getChar ( const QString &list, bool upper, bool unambigous )
 {
     QString charlist = list;
     QChar picked;
-    do {
-        picked = charlist.at(Random::nextUInt(charlist.length()));
-        if (upper) {
+    do
+    {
+        picked = charlist.at ( Random::nextUInt ( charlist.length() ) );
+        if ( upper )
+        {
             picked = picked.toUpper();
         }
-    } while (ambiguous_set.contains(picked) && unambigous);
+    }
+    while ( ambiguous_set.contains ( picked ) && unambigous );
     return picked;
 }
