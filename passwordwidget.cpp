@@ -11,28 +11,20 @@ PasswordWidget::PasswordWidget ( QObject *parent ) :
 
 void PasswordWidget::paint ( QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index ) const
 {
-    QItemDelegate::paint ( painter, option, index );
+    QItemDelegate::paint(painter, option, index);
 
-    int progress = getStrength ( index.data ( Qt::DisplayRole ).toString() );
+    int progress = index.data(Qt::DisplayRole).toInt();
     // Draws teh progress bar
     QStyleOptionProgressBar bar;
     QRect rect = option.rect;
-    rect.setLeft ( rect.right() - 100 );
+    rect.setLeft(rect.right() - 100);
     bar.rect = rect;
     bar.minimum = 0;
     bar.maximum = 100;
     bar.progress = progress;
     bar.textVisible = false;
-    QApplication::style()->drawControl ( QStyle::CE_ProgressBar, &bar, painter, 0 );
+    QApplication::style()->drawControl(QStyle::CE_ProgressBar, &bar, painter, 0);
 
-}
-
-QSize PasswordWidget::sizeHint ( const QStyleOptionViewItem &option, const QModelIndex &index ) const
-{
-    // Add enough space for the progress bar
-    QSize size = QItemDelegate::sizeHint ( option, index );
-    size.setWidth ( size.width() + 105 );
-    return size;
 }
 
 int PasswordWidget::getStrength ( const QString &password ) const

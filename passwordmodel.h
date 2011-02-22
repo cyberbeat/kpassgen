@@ -42,6 +42,7 @@ public:
     
 public slots:
     void addPassword(const QString &password);
+    void clear();
     
 private:
     QStringList passwords;

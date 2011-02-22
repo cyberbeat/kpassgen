@@ -31,7 +31,7 @@ PasswordList::PasswordList ( QWidget *parent ) : QTableView ( parent )
 {
     setAutoScroll ( true );
     setDragEnabled ( true );
-    //setItemDelegate ( new PasswordWidget ( this ) );
+    setItemDelegateForColumn(1, new PasswordWidget(this));
     setAlternatingRowColors ( true );
     setContextMenuPolicy ( Qt::ActionsContextMenu );
 }
@@ -85,7 +85,7 @@ void PasswordList::mouseMoveEvent ( QMouseEvent *event )
         if ( distance >= QApplication::startDragDistance() )
             preformDrag();
     }
-//	QListWidget::mouseMoveEvent(event);
+//  QListWidget::mouseMoveEvent(event);
 }
 
 void PasswordList::preformDrag()

@@ -25,15 +25,15 @@ QVariant PasswordModel::data ( const QModelIndex& index, int role ) const
 {
     if (!index.isValid())
         return QVariant();
-    
+
     if ( role == Qt::DisplayRole ) {
         int row = index.row();
         int column = index.column();
-        
+
         if (column == 0) {
             return passwords.at(row);
         }
-    return QVariant(rand()%100);
+        return QVariant(rand()%100);
     }
     return QVariant();
 }
@@ -74,7 +74,7 @@ PasswordModel::PasswordModel ( const PasswordModel& other )
 
 PasswordModel::~PasswordModel()
 {
-    
+
 }
 
 void PasswordModel::addPassword ( const QString& password )
@@ -83,4 +83,11 @@ void PasswordModel::addPassword ( const QString& password )
     beginInsertRows(QModelIndex(), row, row);
     passwords.append(password);
     endInsertRows();
+}
+
+void PasswordModel::clear()
+{ 
+    beginRemoveRows(QModelIndex(), 0, passwords.count() - 1);
+    passwords.clear(); 
+    endRemoveRows();
 }

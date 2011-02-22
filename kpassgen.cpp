@@ -151,8 +151,8 @@ void KPassGen::genPass()
                    flags );
         break;
     }
-    
-    qDebug() << "Passwords generated: " << passlist;
+
+    model.clear();
 
     foreach( QString pass, passlist) {
         model.addPassword(pass);
