@@ -2,3 +2,5 @@
 build/*
 *.tar.gz
 *.o 
+*~
+*.kdev4
