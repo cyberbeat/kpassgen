@@ -17,6 +17,7 @@
 */
 #include "passwordlist.h"
 #include "passwordwidget.h"
+#include "passwordmodel.h"
 
 #include <QApplication>
 #include <QMouseEvent>
@@ -24,27 +25,20 @@
 #include <QFont>
 #include <QClipboard>
 #include <QProgressBar>
+#include <QTableWidgetItem>
 
-PasswordList::PasswordList ( QWidget *parent ) : KListWidget ( parent )
+PasswordList::PasswordList ( QWidget *parent ) : QTableView ( parent )
 {
     setAutoScroll ( true );
     setDragEnabled ( true );
-    setItemDelegate ( new PasswordWidget ( this ) );
+    //setItemDelegate ( new PasswordWidget ( this ) );
     setAlternatingRowColors ( true );
     setContextMenuPolicy ( Qt::ActionsContextMenu );
 }
 
-void PasswordList::replace ( QStringList &passlist )
-{
-    clear();
-    foreach ( QString pass, passlist )
-    {
-        new QListWidgetItem ( pass, this );
-    }
-}
-
 void PasswordList::copy ( int index )
 {
+    /*
     // Get an index of the current items if index is -1 or to large
     if ( index < 0 || index >= count() )
     {
@@ -61,6 +55,7 @@ void PasswordList::copy ( int index )
     QClipboard *cb = QApplication::clipboard();
 
     cb->setText ( password, QClipboard::Clipboard );
+    */
 }
 
 void PasswordList::setMonoFont ( bool b )
@@ -78,7 +73,7 @@ void PasswordList::mousePressEvent ( QMouseEvent *event )
 {
     if ( event->button() == Qt::LeftButton )
         dragStartPos = event->pos();
-    QListWidget::mousePressEvent ( event );
+    QTableView::mousePressEvent ( event );
 }
 
 
@@ -95,7 +90,8 @@ void PasswordList::mouseMoveEvent ( QMouseEvent *event )
 
 void PasswordList::preformDrag()
 {
-    QListWidgetItem *item = currentItem();
+    /*
+    QListWidgetItem *item = current
     if ( item )
     {
         QString pass = item->text();
@@ -117,4 +113,5 @@ void PasswordList::preformDrag()
         drag->setPixmap ( pixmap );
         drag->exec();
     }
+    */
 }

@@ -19,13 +19,23 @@
 
 
 #include "passwordmodel.h"
+#include <KDebug>
 
 QVariant PasswordModel::data ( const QModelIndex& index, int role ) const
 {
     if (!index.isValid())
         return QVariant();
     
-    return 1;
+    if ( role == Qt::DisplayRole ) {
+        int row = index.row();
+        int column = index.column();
+        
+        if (column == 0) {
+            return passwords.at(row);
+        }
+    return QVariant(rand()%100);
+    }
+    return QVariant();
 }
 
 int PasswordModel::columnCount ( const QModelIndex& parent ) const
@@ -55,7 +65,6 @@ void PasswordModel::sort ( int column, Qt::SortOrder order )
 
 PasswordModel::PasswordModel()
 {
-
 }
 
 PasswordModel::PasswordModel ( const PasswordModel& other )
@@ -68,4 +77,10 @@ PasswordModel::~PasswordModel()
     
 }
 
-
+void PasswordModel::addPassword ( const QString& password )
+{
+    int row = passwords.length();
+    beginInsertRows(QModelIndex(), row, row);
+    passwords.append(password);
+    endInsertRows();
+}

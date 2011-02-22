@@ -1,19 +1,19 @@
 /*
-	Copyright 2009 Michael Daffin <james1479@googlemail.com>
+    Copyright 2009 Michael Daffin <james1479@googlemail.com>
 
-	This program is free software; you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation; either version 2 of the License, or
-	(at your option) any later version.
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
 
-	This program is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-	You should have received a copy of the GNU General Public License
-	along with this program; if not, write to the Free Software
-	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 #include "kpassgen.h"
 #include "ui_kpassgen.h"
@@ -21,6 +21,7 @@
 #include "settings.h"
 #include "common.h"
 #include <QStringList>
+#include <KDebug>
 
 
 
@@ -30,6 +31,7 @@ KPassGen::KPassGen ( QWidget *parent ) :
 {
     ui->setupUi ( this );
     ui->optionspane->setVisible ( false );
+    ui->passwordView->setModel(&model);
 
     readSettings();
 
@@ -95,7 +97,7 @@ void KPassGen::readSettings()
     ui->radioHexLower->setChecked ( Settings::hexLower() );
     ui->spinAmount->setValue ( Settings::amount() );
     ui->spinLength->setValue ( Settings::length() );
-    ui->listPasswords->setMonoFont ( Settings::monoFont() );
+    ui->passwordView->setMonoFont ( Settings::monoFont() );
     ui->checkPernUpper->setChecked ( Settings::pernUpper() );
     ui->checkPernNumber->setChecked ( Settings::pernNumber() );
     ui->checkPernUnam->setChecked ( Settings::pernUnambigous() );
@@ -149,8 +151,12 @@ void KPassGen::genPass()
                    flags );
         break;
     }
+    
+    qDebug() << "Passwords generated: " << passlist;
 
-    ui->listPasswords->replace ( passlist );
+    foreach( QString pass, passlist) {
+        model.addPassword(pass);
+    }
     emit passwordsChanged();
 }
 
@@ -243,18 +249,19 @@ void KPassGen::uniqueToggle ( bool unique )
 
 void KPassGen::copy ( int index )
 {
-    ui->listPasswords->copy ( index );
+    ui->passwordView->copy ( index );
 }
 
 void KPassGen::clear()
 {
-    ui->listPasswords->clear();
+    //TODO
+    //ui->listPasswords->clear();
     emit passwordsCleared();
 }
 
 void KPassGen::setMonoFont ( bool b )
 {
-    ui->listPasswords->setMonoFont ( b );
+    ui->passwordView->setMonoFont ( b );
 }
 
 void KPassGen::setCopyEnabled ( bool b )

@@ -18,12 +18,12 @@
 #ifndef PASSWORDLIST_H
 #define PASSWORDLIST_H
 
-#include <KListWidget>
+#include <QTableView>
 
 class QMouseEvent;
 class QPoint;
 
-class PasswordList : public KListWidget
+class PasswordList : public QTableView
 {
 Q_OBJECT
 public:

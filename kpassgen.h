@@ -18,6 +18,7 @@
 #ifndef KPASSGEN_H
 #define KPASSGEN_H
 
+#include "passwordmodel.h"
 #include <QWidget>
 
 namespace Ui {
@@ -57,6 +58,7 @@ protected:
 private:
     QString getCharacterSet();
     Ui::KPassGen *ui;
+    PasswordModel model;
 };
 
 
