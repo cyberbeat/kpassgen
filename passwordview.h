@@ -30,7 +30,7 @@ public:
     PasswordView(QWidget *parent = 0);
 
 public slots:
-    void copy(int index = -1);
+    void copyCurrentItem();
     void setMonoFont(bool b = false);
 
 private:

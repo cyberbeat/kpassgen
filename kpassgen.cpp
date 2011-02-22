@@ -252,9 +252,9 @@ void KPassGen::uniqueToggle ( bool unique )
     }
 }
 
-void KPassGen::copy ( int index )
+void KPassGen::copy()
 {
-    ui->passwordView->copy ( index );
+    ui->passwordView->copyCurrentItem();
 }
 
 void KPassGen::clear()

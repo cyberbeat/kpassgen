@@ -27,38 +27,30 @@
 #include <QProgressBar>
 #include <QTableWidgetItem>
 #include <QHeaderView>
+#include <QDebug>
 
 PasswordView::PasswordView ( QWidget *parent ) : QTableView ( parent )
 {
     setAutoScroll ( true );
     setDragEnabled ( true );
-    setItemDelegateForColumn(1, new PasswordWidget(this));
+    setItemDelegate(new PasswordWidget(this));
     setAlternatingRowColors ( true );
     setContextMenuPolicy ( Qt::ActionsContextMenu );
-    
-    
 }
 
-void PasswordView::copy ( int index )
+void PasswordView::copyCurrentItem()
 {
-    /*
     // Get an index of the current items if index is -1 or to large
-    if ( index < 0 || index >= count() )
-    {
-        if ( currentRow() < 0 )
-            setCurrentRow ( 0 );
+    if (!currentIndex().isValid()) {
+        qDebug() << "Failed to copy: Index not valid";
+        return;
     }
-    else  // otherwise select that item
-    {
-        setCurrentRow ( index );
-    }
-    if ( !currentItem() ) return;
-    QString password = currentItem()->text();
+    
+    QString password = model()->data(currentIndex()).toString();
 
     QClipboard *cb = QApplication::clipboard();
 
     cb->setText ( password, QClipboard::Clipboard );
-    */
 }
 
 void PasswordView::setMonoFont ( bool b )

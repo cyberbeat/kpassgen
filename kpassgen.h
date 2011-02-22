@@ -41,7 +41,7 @@ private slots:
     void pageIndexChanged(int index);
     void alphaUpdate();
     void uniqueToggle(bool unique);
-    void copy(int index = -1);
+    void copy();
     void clear();
     void setMonoFont(bool b = false);
     
