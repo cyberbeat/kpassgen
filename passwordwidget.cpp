@@ -9,16 +9,31 @@
 PasswordWidget::PasswordWidget ( QObject *parent ) :
         QItemDelegate ( parent ), reasonablePasswordLength ( 12 ) { }
 
-void PasswordWidget::paint ( QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index ) const
+void PasswordWidget::paint ( QPainter* painter, 
+                             const QStyleOptionViewItem& option, 
+                             const QModelIndex& index ) const
 {
-    QItemDelegate::paint(painter, option, index);
+    if (!index.isValid()) return;
+    if (index.column() == 0) {
+        QItemDelegate::paint(painter, option, index);
+        return;
+    }
+    
+    if (option.state & QStyle::State_Selected) {
+        painter->fillRect(option.rect, option.palette.highlight());
+    }
 
     int progress = index.data(Qt::DisplayRole).toInt();
     // Draws the progress bar
     QStyleOptionProgressBar bar;
     QRect rect = option.rect;
-    //rect.setLeft(rect.right() - 100);
-    bar.rect = rect;
+    QRect newrect(rect.left(), rect.top() + rect.height()/2 -10, rect.width(), 20);
+    bar.rect = newrect;
+
+    bar.state = QStyle::State_Enabled;
+    bar.direction = QApplication::layoutDirection();
+    //bar.rect = option.rect;
+    bar.fontMetrics = QApplication::fontMetrics();
     bar.minimum = 0;
     bar.maximum = 100;
     bar.progress = progress;
