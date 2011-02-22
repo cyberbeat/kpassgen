@@ -32,6 +32,10 @@ KPassGen::KPassGen ( QWidget *parent ) :
     ui->setupUi ( this );
     ui->optionspane->setVisible ( false );
     ui->passwordView->setModel(&model);
+    
+    QHeaderView *header = ui->passwordView->horizontalHeader();
+    header->setResizeMode(QHeaderView::Stretch);
+    header->setResizeMode(1, QHeaderView::Interactive);
 
     readSettings();
 

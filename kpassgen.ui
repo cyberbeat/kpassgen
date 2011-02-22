@@ -79,9 +79,13 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,0">
+    <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0">
      <item>
-      <widget class="PasswordList" name="passwordView"/>
+      <widget class="PasswordList" name="passwordView">
+       <attribute name="verticalHeaderVisible">
+        <bool>false</bool>
+       </attribute>
+      </widget>
      </item>
      <item>
       <widget class="QWidget" name="optionspane" native="true">
@@ -466,7 +470,7 @@ p, li { white-space: pre-wrap; }
   </customwidget>
   <customwidget>
    <class>PasswordList</class>
-   <extends>QListView</extends>
+   <extends>QTableView</extends>
    <header location="global">passwordlist.h</header>
   </customwidget>
  </customwidgets>

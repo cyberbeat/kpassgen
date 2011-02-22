@@ -23,7 +23,7 @@
 
 #include <qabstractitemmodel.h>
 
-#include <QStringList>;
+#include <QStringList>
 
 
 class PasswordModel : public QAbstractTableModel

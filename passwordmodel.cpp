@@ -30,10 +30,10 @@ QVariant PasswordModel::data ( const QModelIndex& index, int role ) const
         int row = index.row();
         int column = index.column();
 
-        if (column == 0) {
+        if (column == 0)
             return passwords.at(row);
-        }
-            return QVariant(rand()%100);
+        else if (column == 1)
+            return QVariant(100);
     }
     return QVariant();
 }

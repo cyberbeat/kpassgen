@@ -26,6 +26,7 @@
 #include <QClipboard>
 #include <QProgressBar>
 #include <QTableWidgetItem>
+#include <QHeaderView>
 
 PasswordList::PasswordList ( QWidget *parent ) : QTableView ( parent )
 {
@@ -34,6 +35,8 @@ PasswordList::PasswordList ( QWidget *parent ) : QTableView ( parent )
     setItemDelegateForColumn(1, new PasswordWidget(this));
     setAlternatingRowColors ( true );
     setContextMenuPolicy ( Qt::ActionsContextMenu );
+    
+    
 }
 
 void PasswordList::copy ( int index )

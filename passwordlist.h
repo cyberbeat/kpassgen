@@ -28,11 +28,10 @@ class PasswordList : public QTableView
 Q_OBJECT
 public:
     PasswordList(QWidget *parent = 0);
-    void replace(QStringList &passlist);
 
 public slots:
     void copy(int index = -1);
-        void setMonoFont(bool b = false);
+    void setMonoFont(bool b = false);
 
 private:
     void mousePressEvent(QMouseEvent *event);
