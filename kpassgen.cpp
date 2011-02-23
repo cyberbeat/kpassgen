@@ -18,12 +18,12 @@
 #include "kpassgen.h"
 #include "ui_kpassgen.h"
 #include "generatepassword.h"
+#include "passwordview.h"
 #include "settings.h"
 #include "common.h"
 #include <QStringList>
 #include <KDebug>
-
-
+#include <KActionCollection>
 
 KPassGen::KPassGen ( QWidget *parent ) :
         QWidget ( parent ),
@@ -40,26 +40,29 @@ KPassGen::KPassGen ( QWidget *parent ) :
 
     readSettings();
 
-    connect ( ui->buttonGenerate, SIGNAL ( clicked() ),
-              this, SLOT ( genPass() ) );
-    connect ( ui->checkAlphaCustom, SIGNAL ( toggled ( bool ) ),
-              this, SLOT ( alphaUpdate() ) );
-    connect ( ui->checkAlphaLowercase, SIGNAL ( toggled ( bool ) ),
-              this, SLOT ( alphaUpdate() ) );
-    connect ( ui->checkAlphaUppercase, SIGNAL ( toggled ( bool ) ),
-              this, SLOT ( alphaUpdate() ) );
-    connect ( ui->checkAlphaNumbers, SIGNAL ( toggled ( bool ) ),
-              this, SLOT ( alphaUpdate() ) );
-    connect ( ui->checkAlphaSymbols, SIGNAL ( toggled ( bool ) ),
-              this, SLOT ( alphaUpdate() ) );
-    connect ( ui->checkAlphaUnique, SIGNAL ( toggled ( bool ) ),
-              this, SLOT ( uniqueToggle ( bool ) ) );
-    connect ( ui->lineAlphaCustom, SIGNAL ( textChanged ( QString ) ),
-              this, SLOT ( alphaUpdate() ) );
-    connect ( ui->comboType, SIGNAL ( currentIndexChanged ( int ) ),
-              this, SLOT ( pageIndexChanged ( int ) ) );
-    connect ( ui->buttonCopy, SIGNAL ( clicked() ), this, SLOT ( copy() ) );
-    connect ( this, SIGNAL ( passwordsChanged() ), this, SLOT ( setCopyEnabled() ) );
+    connect ( ui->buttonGenerate,      SIGNAL ( clicked() ), 
+              this,                    SLOT ( genPass() ) );
+    connect ( ui->checkAlphaCustom,    SIGNAL ( toggled ( bool ) ), 
+              this,                    SLOT ( alphaUpdate() ) );
+    connect ( ui->checkAlphaLowercase, SIGNAL ( toggled ( bool ) ), 
+              this,                    SLOT ( alphaUpdate() ) );
+    connect ( ui->checkAlphaUppercase, SIGNAL ( toggled ( bool ) ), 
+              this,                    SLOT ( alphaUpdate() ) );
+    connect ( ui->checkAlphaNumbers,   SIGNAL ( toggled ( bool ) ), 
+              this,                    SLOT ( alphaUpdate() ) );
+    connect ( ui->checkAlphaSymbols,   SIGNAL ( toggled ( bool ) ), 
+              this,                    SLOT ( alphaUpdate() ) );
+    connect ( ui->checkAlphaUnique,    SIGNAL ( toggled ( bool ) ), 
+              this,                    SLOT ( uniqueToggle ( bool ) ) );
+    connect ( ui->lineAlphaCustom,     SIGNAL ( textChanged ( QString ) ), 
+              this,                    SLOT ( alphaUpdate() ) );
+    connect ( ui->comboType,           SIGNAL ( currentIndexChanged ( int ) ), 
+              this,                    SLOT ( pageIndexChanged ( int ) ) );
+    connect ( ui->buttonCopy,          SIGNAL ( clicked() ), 
+              this,                    SLOT ( copy() ) );
+    connect ( ui->passwordView->selectionModel(), 
+              SIGNAL ( currentRowChanged( QModelIndex,QModelIndex ) ),
+              this, SLOT ( selectionChanged( QModelIndex, QModelIndex ) ) );
 }
 
 KPassGen::~KPassGen()
@@ -269,9 +272,17 @@ void KPassGen::setMonoFont ( bool b )
     ui->passwordView->setMonoFont ( b );
 }
 
+void KPassGen::selectionChanged(QModelIndex current, QModelIndex previous)
+{
+    qDebug() << "Index: " << current.row() << " " << current.column();
+    bool enable = current.isValid();
+    ui->buttonCopy->setEnabled(enable);
+}
+
 void KPassGen::setCopyEnabled ( bool b )
 {
-    ui->buttonCopy->setEnabled ( b );
+    qDebug() << "setCopyEnabled not used";
+    //ui->buttonCopy->setEnabled ( b );
 }
 
 QString KPassGen::getCharacterSet()

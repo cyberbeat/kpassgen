@@ -44,6 +44,7 @@ private slots:
     void copy();
     void clear();
     void setMonoFont(bool b = false);
+    void selectionChanged(QModelIndex current, QModelIndex previous);
     
 public slots:
     void setCopyEnabled(bool b = true);
