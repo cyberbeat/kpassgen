@@ -19,9 +19,10 @@
 #define MAINWINDOW_H
 
 #include "passwordview.h"
+#include "passwordmodel.h"
 
+#include <QWidget>
 #include <QStringList>
-
 #include <KXmlGuiWindow>
 
 class KPassGen;
@@ -45,6 +46,47 @@ private:
 
 protected:
     void closeEvent(QCloseEvent* e);
+};
+
+namespace Ui {
+    class KPassGen;
+}
+
+class KPassGen : public QWidget
+{
+    Q_OBJECT
+
+public:
+    explicit KPassGen(QWidget *parent = 0);
+    ~KPassGen();
+
+    void writeSettings();
+    void readSettings();
+
+private slots:
+    void genPass();
+    void pageIndexChanged(int index);
+    void alphaUpdate();
+    void uniqueToggle(bool unique);
+    void copy();
+    void clear();
+    void setMonoFont(bool b = false);
+    void selectionChanged(QModelIndex current, QModelIndex previous);
+    
+public slots:
+    void setCopyEnabled(bool b = true);
+
+signals:
+    void passwordsChanged();
+    void passwordsCleared();
+
+protected:
+    void changeEvent(QEvent *e);
+
+private:
+    QString getCharacterSet();
+    Ui::KPassGen *ui;
+    PasswordModel model;
 };
 
 #endif // MAINWINDOW_H
