@@ -319,8 +319,7 @@ void MainWindow::copy()
 
 void MainWindow::clear()
 {
-    //TODO
-    //ui->listPasswords->clear();
+    (( PasswordModel* ) ui->passwordView->model() )->clear();
 }
 
 void MainWindow::setMonoFont ( bool b )
