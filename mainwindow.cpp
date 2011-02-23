@@ -118,9 +118,9 @@ void MainWindow::setupActions()
 
 void MainWindow::setupContextMenu()
 {
-    addAction ( actionCollection()->action ( "edit-copy" ) );
-    addAction ( actionCollection()->action ( "edit-clear" ) );
-    setContextMenuPolicy ( Qt::ActionsContextMenu );
+    ui->passwordView->addAction ( actionCollection()->action ( "edit-copy" ) );
+    ui->passwordView->addAction ( actionCollection()->action ( "edit-clear" ) );
+    ui->passwordView->setContextMenuPolicy ( Qt::ActionsContextMenu );
 }
 
 void MainWindow::setupConfig()
