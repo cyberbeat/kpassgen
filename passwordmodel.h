@@ -31,7 +31,6 @@ class PasswordModel : public QAbstractTableModel
 
 public:
     explicit PasswordModel(QObject * parent = 0);
-    explicit PasswordModel ( const PasswordModel& other );
     virtual ~PasswordModel();
     virtual QVariant data ( const QModelIndex& index, int role = Qt::DisplayRole ) const;
     virtual int columnCount ( const QModelIndex& parent = QModelIndex() ) const;

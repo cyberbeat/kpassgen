@@ -7,7 +7,7 @@
 #include <QPainter>
 
 PasswordWidget::PasswordWidget ( QObject *parent ) :
-        QItemDelegate ( parent ), { }
+        QItemDelegate ( parent ) { }
 
 void PasswordWidget::paint ( QPainter* painter, 
                              const QStyleOptionViewItem& option, 

@@ -27,12 +27,6 @@ PasswordModel::PasswordModel( QObject* parent ): QAbstractTableModel(parent),
 {
 }
 
-PasswordModel::PasswordModel( const PasswordModel& other ) : 
-    QAbstractTableModel(other),
-    reasonablePasswordLength(12) 
-{
-}
-
 PasswordModel::~PasswordModel()
 {
 }
@@ -49,7 +43,7 @@ QVariant PasswordModel::data ( const QModelIndex& index, int role ) const
         if (column == 0)
             return passwords.at(row);
         else if (column == 1)
-            return QVariant(100);
+            return QVariant(getStrength(passwords.at(row)));
     }
     return QVariant();
 }
