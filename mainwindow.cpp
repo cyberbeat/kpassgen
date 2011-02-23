@@ -42,8 +42,6 @@ MainWindow::MainWindow ( QWidget *parent ) :
     
     setCentralWidget(widget);
     
-    setupConfig();
-
     setupActions();
     setupContextMenu();
 
@@ -122,11 +120,6 @@ void MainWindow::setupContextMenu()
     ui->passwordView->setContextMenuPolicy ( Qt::ActionsContextMenu );
 }
 
-void MainWindow::setupConfig()
-{
-    Settings::self()->readConfig();
-}
-
 void MainWindow::closeEvent ( QCloseEvent* /*e*/ )
 {
     writeSettings();
@@ -156,6 +149,7 @@ void MainWindow::writeSettings()
 
 void MainWindow::readSettings()
 {
+    Settings::self()->readConfig();
     ui->checkAlphaCustom->setChecked ( Settings::alphaCustom() );
     ui->checkAlphaLowercase->setChecked ( Settings::alphaLowercase() );
     ui->checkAlphaNumbers->setChecked ( Settings::alphaNumbers() );
