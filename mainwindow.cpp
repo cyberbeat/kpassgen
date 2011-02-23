@@ -223,7 +223,6 @@ void MainWindow::genPass()
     foreach( QString pass, passlist) {
         model.addPassword(pass);
     }
-    emit passwordsChanged();
 }
 
 void MainWindow::pageIndexChanged ( int index )
@@ -322,7 +321,6 @@ void MainWindow::clear()
 {
     //TODO
     //ui->listPasswords->clear();
-    emit passwordsCleared();
 }
 
 void MainWindow::setMonoFont ( bool b )

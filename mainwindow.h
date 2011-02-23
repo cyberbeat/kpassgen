@@ -47,14 +47,9 @@ private slots:
     void setMonoFont(bool b = false);
     void selectionChanged(QModelIndex current, QModelIndex previous);
     
-signals:
-    void passwordsChanged();
-    void passwordsCleared();
-
 private:
     void setupActions();
     void setupContextMenu();
-    void setupConfig();
     void writeSettings();
     void readSettings();
 
