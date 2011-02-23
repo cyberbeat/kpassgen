@@ -19,7 +19,23 @@
 
 
 #include "passwordmodel.h"
+#include "common.h"
 #include <KDebug>
+
+PasswordModel::PasswordModel( QObject* parent ): QAbstractTableModel(parent),
+    reasonablePasswordLength(12)
+{
+}
+
+PasswordModel::PasswordModel( const PasswordModel& other ) : 
+    QAbstractTableModel(other),
+    reasonablePasswordLength(12) 
+{
+}
+
+PasswordModel::~PasswordModel()
+{
+}
 
 QVariant PasswordModel::data ( const QModelIndex& index, int role ) const
 {
@@ -70,20 +86,6 @@ void PasswordModel::sort ( int column, Qt::SortOrder order )
     QAbstractItemModel::sort ( column, order );
 }
 
-PasswordModel::PasswordModel()
-{
-}
-
-PasswordModel::PasswordModel ( const PasswordModel& other )
-{
-
-}
-
-PasswordModel::~PasswordModel()
-{
-
-}
-
 void PasswordModel::addPassword ( const QString& password )
 {
     int row = passwords.length();
@@ -97,4 +99,89 @@ void PasswordModel::clear()
     beginRemoveRows(QModelIndex(), 0, passwords.count() - 1);
     passwords.clear(); 
     endRemoveRows();
+}
+
+int PasswordModel::getStrength ( const QString &password ) const
+{
+    // Password strength calculator borrowed from kwallet.cpp
+    int pwstrength = ( 20 * password.length() + 80 * effectivePasswordLength ( password ) ) / qMax ( reasonablePasswordLength, 2 );
+    if ( pwstrength < 0 )
+    {
+        pwstrength = 0;
+    }
+    else if ( pwstrength > 100 )
+    {
+        pwstrength = 100;
+    }
+    return pwstrength;
+}
+
+// Borrowed from kwallet.cpp :)
+int PasswordModel::effectivePasswordLength ( const QString &password ) const
+{
+    enum Category
+    {
+        Digit,
+        Upper,
+        Vowel,
+        Consonant,
+        Special
+    };
+
+    Category previousCategory = Vowel;
+    int count = 0;
+
+    for ( int i = 0; i < password.length(); ++i )
+    {
+        QChar currentChar = password.at ( i );
+        if ( !password.left ( i ).contains ( currentChar ) )
+        {
+            Category currentCategory;
+            switch ( currentChar.category() )
+            {
+            case QChar::Letter_Uppercase:
+                currentCategory = Upper;
+                break;
+            case QChar::Letter_Lowercase:
+                if ( vowel_set.contains ( currentChar ) )
+                {
+                    currentCategory = Vowel;
+                }
+                else
+                {
+                    currentCategory = Consonant;
+                }
+                break;
+            case QChar::Number_DecimalDigit:
+                currentCategory = Digit;
+                break;
+            default:
+                currentCategory = Special;
+                break;
+            }
+            switch ( currentCategory )
+            {
+            case Vowel:
+                if ( previousCategory != Consonant )
+                {
+                    ++count;
+                }
+                break;
+            case Consonant:
+                if ( previousCategory != Vowel )
+                {
+                    ++count;
+                }
+                break;
+            default:
+                if ( previousCategory != currentCategory )
+                {
+                    ++count;
+                }
+                break;
+            }
+            previousCategory = currentCategory;
+        }
+    }
+    return count;
 }

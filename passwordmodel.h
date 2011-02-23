@@ -30,15 +30,15 @@ class PasswordModel : public QAbstractTableModel
 {
 
 public:
+    explicit PasswordModel(QObject * parent = 0);
+    explicit PasswordModel ( const PasswordModel& other );
+    virtual ~PasswordModel();
     virtual QVariant data ( const QModelIndex& index, int role = Qt::DisplayRole ) const;
     virtual int columnCount ( const QModelIndex& parent = QModelIndex() ) const;
     virtual int rowCount ( const QModelIndex& parent = QModelIndex() ) const;
     virtual QVariant headerData ( int section, Qt::Orientation orientation, int role = Qt::DisplayRole ) const;
     virtual Qt::ItemFlags flags ( const QModelIndex& index ) const;
     virtual void sort ( int column, Qt::SortOrder order = Qt::AscendingOrder );
-    PasswordModel();
-    PasswordModel ( const PasswordModel& other );
-    virtual ~PasswordModel();
     
 public slots:
     void addPassword(const QString &password);
@@ -46,6 +46,11 @@ public slots:
     
 private:
     QStringList passwords;
+    int reasonablePasswordLength;
+    
+    int getStrength(const QString &pass) const;
+    int effectivePasswordLength(const QString &password) const;
+
 };
 
 #endif // PASSWORDMODEL_H
