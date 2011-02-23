@@ -102,7 +102,6 @@ void MainWindow::setupActions()
     clearAction->setText ( i18n ( "Clear &Passwords" ) );
     clearAction->setIcon ( KIcon ( "edit-clear" ) );
     clearAction->setShortcut ( KShortcut ( "Ctrl+D" ) );
-    clearAction->setEnabled ( false );
     actionCollection()->addAction ( "edit-clear", clearAction );
 
     KAction* monoToggle = new KAction ( this );
