@@ -51,21 +51,11 @@ int PasswordModel::rowCount ( const QModelIndex& parent ) const
 QVariant PasswordModel::headerData ( int section, Qt::Orientation orientation, int role ) const
 {
     if (orientation != Qt::Horizontal || role != Qt::DisplayRole) return QVariant();
-    qDebug() << "Horizontal";
-    qDebug() << section;
     if (section < 0 || section >= columnCount()) return QVariant();
-    qDebug() << "After";
     
     switch(section) {
-        case 0: 
-            qDebug() << "0";
-            return QVariant("Password");
-        
-        case 1: 
-            qDebug() << "1";
-            return QVariant("Strength");
-        default:
-            qDebug() << "Ahhh";
+        case 0: return QVariant("Password");
+        case 1: return QVariant("Strength");
     }
     return QVariant();
 }
