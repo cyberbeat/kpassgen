@@ -25,7 +25,9 @@
 #include <QStringList>
 #include <KXmlGuiWindow>
 
-class KPassGen;
+namespace Ui {
+    class KPassGen;
+}
 
 class MainWindow : public KXmlGuiWindow {
     Q_OBJECT
@@ -34,36 +36,8 @@ public:
     ~MainWindow();
 
 private slots:
-    void enableCopy(bool b = true);
-    void disableCopy(bool b = true);
-
-private:
-    void setupActions();
-    void setupContextMenu();
-    void setupConfig();
-
-    KPassGen *passwidget;
-
-protected:
-    void closeEvent(QCloseEvent* e);
-};
-
-namespace Ui {
-    class KPassGen;
-}
-
-class KPassGen : public QWidget
-{
-    Q_OBJECT
-
-public:
-    explicit KPassGen(QWidget *parent = 0);
-    ~KPassGen();
-
-    void writeSettings();
-    void readSettings();
-
-private slots:
+    void setCopyEnabled(bool enabled = true);
+    void setCopyDisabled(bool enabled = true);
     void genPass();
     void pageIndexChanged(int index);
     void alphaUpdate();
@@ -73,20 +47,24 @@ private slots:
     void setMonoFont(bool b = false);
     void selectionChanged(QModelIndex current, QModelIndex previous);
     
-public slots:
-    void setCopyEnabled(bool b = true);
-
 signals:
     void passwordsChanged();
     void passwordsCleared();
 
-protected:
-    void changeEvent(QEvent *e);
-
 private:
+    void setupActions();
+    void setupContextMenu();
+    void setupConfig();
+    void writeSettings();
+    void readSettings();
+
     QString getCharacterSet();
     Ui::KPassGen *ui;
     PasswordModel model;
+
+protected:
+    void closeEvent(QCloseEvent* e);
+    void changeEvent(QEvent *e);
 };
 
 #endif // MAINWINDOW_H

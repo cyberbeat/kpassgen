@@ -8,7 +8,6 @@ include_directories(${QT_INCLUDE} ${KDE4_INCLUDES} ${CMAKE_CURRENT_BINARY_DIR})
 set(kpassgen_SRCS
     main.cpp
     mainwindow.cpp
-    kpassgen.cpp
     generatepassword.cpp
     passwordview.cpp
     passwordwidget.cpp

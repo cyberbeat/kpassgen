@@ -17,7 +17,6 @@
 */
 #include "mainwindow.h"
 #include "settings.h"
-#include "kpassgen.h"
 #include "ui_kpassgen.h"
 #include "generatepassword.h"
 #include "passwordview.h"
@@ -35,88 +34,21 @@
 #include <KAction>
 
 MainWindow::MainWindow ( QWidget *parent ) :
-        KXmlGuiWindow ( parent )
+        KXmlGuiWindow ( parent ),
+        ui ( new Ui::KPassGen )
 {
+    QWidget *widget = new QWidget;
+    ui->setupUi ( widget );
+    
+    setCentralWidget(widget);
+    
     setupConfig();
-    passwidget = new KPassGen ( this );
-    setCentralWidget ( passwidget );
 
     setupActions();
     setupContextMenu();
 
     setupGUI ( Create | Save );
-
-    connect ( passwidget, SIGNAL ( passwordsChanged() ), this, SLOT ( enableCopy() ) );
-    connect ( passwidget, SIGNAL ( passwordsCleared() ), this, SLOT ( disableCopy() ) );
-}
-
-MainWindow::~MainWindow()
-{
-}
-
-void MainWindow::enableCopy ( bool b )
-{
-    actionCollection()->action ( "edit-copy" )->setEnabled ( b );
-    actionCollection()->action ( "edit-clear" )->setEnabled ( b );
-    passwidget->setCopyEnabled ( b );
-}
-
-void MainWindow::disableCopy ( bool b )
-{
-    enableCopy ( !b );
-}
-
-void MainWindow::setupActions()
-{
-    KAction* copyAction = new KAction ( this );
-    copyAction->setText ( i18n ( "&Copy" ) );
-    copyAction->setIcon ( KIcon ( "edit-copy" ) );
-    copyAction->setShortcut ( KShortcut ( "Ctrl+C" ) );
-    copyAction->setEnabled ( false );
-    actionCollection()->addAction ( "edit-copy", copyAction );
-
-    KAction* clearAction = new KAction ( this );
-    clearAction->setText ( i18n ( "Clear &Passwords" ) );
-    clearAction->setIcon ( KIcon ( "edit-clear" ) );
-    clearAction->setShortcut ( KShortcut ( "Ctrl+D" ) );
-    clearAction->setEnabled ( false );
-    actionCollection()->addAction ( "edit-clear", clearAction );
-
-    KAction* monoToggle = new KAction ( this );
-    monoToggle->setText ( i18n ( "&Toggle mono spaced font" ) );
-    monoToggle->setCheckable ( true );
-    monoToggle->setChecked ( Settings::monoFont() );
-    actionCollection()->addAction ( "monoToggle", monoToggle );
-
-    connect ( copyAction, SIGNAL ( triggered() ), passwidget, SLOT ( copy() ) );
-    connect ( clearAction, SIGNAL ( triggered() ), passwidget, SLOT ( clear() ) );
-    connect ( monoToggle, SIGNAL ( toggled ( bool ) ), passwidget, SLOT ( setMonoFont ( bool ) ) );
-}
-
-void MainWindow::setupContextMenu()
-{
-    passwidget->addAction ( actionCollection()->action ( "edit-copy" ) );
-    passwidget->addAction ( actionCollection()->action ( "edit-clear" ) );
-    passwidget->setContextMenuPolicy ( Qt::ActionsContextMenu );
-}
-
-void MainWindow::setupConfig()
-{
-    Settings::self()->readConfig();
-}
-
-void MainWindow::closeEvent ( QCloseEvent* /*e*/ )
-{
-    Settings::setMonoFont ( actionCollection()->action ( "monoToggle" )->isChecked() );
-    passwidget->writeSettings();
-    Settings::self()->writeConfig();
-}
-
-KPassGen::KPassGen ( QWidget *parent ) :
-        QWidget ( parent ),
-        ui ( new Ui::KPassGen )
-{
-    ui->setupUi ( this );
+    
     ui->optionspane->setVisible ( false );
     ui->passwordView->setModel(&model);
     
@@ -152,13 +84,58 @@ KPassGen::KPassGen ( QWidget *parent ) :
               this, SLOT ( selectionChanged( QModelIndex, QModelIndex ) ) );
 }
 
-KPassGen::~KPassGen()
+MainWindow::~MainWindow()
 {
     delete ui;
 }
 
-void KPassGen::writeSettings()
+void MainWindow::setupActions()
 {
+    KAction* copyAction = new KAction ( this );
+    copyAction->setText ( i18n ( "&Copy" ) );
+    copyAction->setIcon ( KIcon ( "edit-copy" ) );
+    copyAction->setShortcut ( KShortcut ( "Ctrl+C" ) );
+    copyAction->setEnabled ( false );
+    actionCollection()->addAction ( "edit-copy", copyAction );
+
+    KAction* clearAction = new KAction ( this );
+    clearAction->setText ( i18n ( "Clear &Passwords" ) );
+    clearAction->setIcon ( KIcon ( "edit-clear" ) );
+    clearAction->setShortcut ( KShortcut ( "Ctrl+D" ) );
+    clearAction->setEnabled ( false );
+    actionCollection()->addAction ( "edit-clear", clearAction );
+
+    KAction* monoToggle = new KAction ( this );
+    monoToggle->setText ( i18n ( "&Toggle mono spaced font" ) );
+    monoToggle->setCheckable ( true );
+    monoToggle->setChecked ( Settings::monoFont() );
+    actionCollection()->addAction ( "monoToggle", monoToggle );
+
+    connect ( copyAction, SIGNAL ( triggered() ), this, SLOT ( copy() ) );
+    connect ( clearAction, SIGNAL ( triggered() ), this, SLOT ( clear() ) );
+    connect ( monoToggle, SIGNAL ( toggled ( bool ) ), this, SLOT ( setMonoFont ( bool ) ) );
+}
+
+void MainWindow::setupContextMenu()
+{
+    addAction ( actionCollection()->action ( "edit-copy" ) );
+    addAction ( actionCollection()->action ( "edit-clear" ) );
+    setContextMenuPolicy ( Qt::ActionsContextMenu );
+}
+
+void MainWindow::setupConfig()
+{
+    Settings::self()->readConfig();
+}
+
+void MainWindow::closeEvent ( QCloseEvent* /*e*/ )
+{
+    writeSettings();
+}
+
+void MainWindow::writeSettings()
+{
+    Settings::setMonoFont ( actionCollection()->action ( "monoToggle" )->isChecked() );
     Settings::setAlphaCustom ( ui->checkAlphaCustom->isChecked() );
     Settings::setAlphaLowercase ( ui->checkAlphaLowercase->isChecked() );
     Settings::setAlphaNumbers ( ui->checkAlphaNumbers->isChecked() );
@@ -175,9 +152,10 @@ void KPassGen::writeSettings()
     Settings::setPernUpper ( ui->checkPernUpper->isChecked() );
     Settings::setPernNumber ( ui->checkPernNumber->isChecked() );
     Settings::setPernUnambigous ( ui->checkPernUnam->isChecked() );
+    Settings::self()->writeConfig();
 }
 
-void KPassGen::readSettings()
+void MainWindow::readSettings()
 {
     ui->checkAlphaCustom->setChecked ( Settings::alphaCustom() );
     ui->checkAlphaLowercase->setChecked ( Settings::alphaLowercase() );
@@ -199,7 +177,7 @@ void KPassGen::readSettings()
     pageIndexChanged ( ui->comboType->currentIndex() );
 }
 
-void KPassGen::genPass()
+void MainWindow::genPass()
 {
 
     QFlags<GeneratePassword::Option> flags;
@@ -255,7 +233,7 @@ void KPassGen::genPass()
     emit passwordsChanged();
 }
 
-void KPassGen::pageIndexChanged ( int index )
+void MainWindow::pageIndexChanged ( int index )
 {
     switch ( index )
     {
@@ -272,7 +250,7 @@ void KPassGen::pageIndexChanged ( int index )
     }
 }
 
-void KPassGen::alphaUpdate()
+void MainWindow::alphaUpdate()
 {
     bool lower   = ui->checkAlphaLowercase->isChecked();
     bool upper   = ui->checkAlphaUppercase->isChecked();
@@ -326,7 +304,7 @@ void KPassGen::alphaUpdate()
     ui->spinLength->setMinimum ( 1 );
 }
 
-void KPassGen::uniqueToggle ( bool unique )
+void MainWindow::uniqueToggle ( bool unique )
 {
     if ( unique )
     {
@@ -342,37 +320,40 @@ void KPassGen::uniqueToggle ( bool unique )
     }
 }
 
-void KPassGen::copy()
+void MainWindow::copy()
 {
     ui->passwordView->copyCurrentItem();
 }
 
-void KPassGen::clear()
+void MainWindow::clear()
 {
     //TODO
     //ui->listPasswords->clear();
     emit passwordsCleared();
 }
 
-void KPassGen::setMonoFont ( bool b )
+void MainWindow::setMonoFont ( bool b )
 {
     ui->passwordView->setMonoFont ( b );
 }
 
-void KPassGen::selectionChanged(QModelIndex current, QModelIndex previous)
+void MainWindow::selectionChanged ( QModelIndex current, QModelIndex previous )
 {
-    qDebug() << "Index: " << current.row() << " " << current.column();
-    bool enable = current.isValid();
-    ui->buttonCopy->setEnabled(enable);
+    setCopyEnabled( current.isValid() );
 }
 
-void KPassGen::setCopyEnabled ( bool b )
+void MainWindow::setCopyEnabled ( bool enabled )
 {
-    qDebug() << "setCopyEnabled not used";
-    //ui->buttonCopy->setEnabled ( b );
+    ui->buttonCopy->setEnabled( enabled );
+    actionCollection()->action( "edit-copy" )->setEnabled( enabled );
 }
 
-QString KPassGen::getCharacterSet()
+void MainWindow::setCopyDisabled ( bool enabled )
+{
+    setCopyEnabled( !enabled );
+}
+
+QString MainWindow::getCharacterSet()
 {
     QString characterset;
 
@@ -398,7 +379,7 @@ QString KPassGen::getCharacterSet()
     return characterset;
 }
 
-void KPassGen::changeEvent ( QEvent* e )
+void MainWindow::changeEvent ( QEvent* e )
 {
     QWidget::changeEvent ( e );
     switch ( e->type() )
