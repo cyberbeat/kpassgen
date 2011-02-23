@@ -46,7 +46,7 @@ void PasswordView::copyCurrentItem()
         return;
     }
     
-    QString password = model()->data(currentIndex()).toString();
+    QString password = currentPassword();
 
     QClipboard *cb = QApplication::clipboard();
 
@@ -85,11 +85,9 @@ void PasswordView::mouseMoveEvent ( QMouseEvent *event )
 
 void PasswordView::preformDrag()
 {
-    /*
-    QListWidgetItem *item = current
-    if ( item )
+    QString pass = currentPassword();
+    if ( !pass.isEmpty() )
     {
-        QString pass = item->text();
         QMimeData *mimeData = new QMimeData;
         mimeData->setText ( pass );
 
@@ -108,5 +106,11 @@ void PasswordView::preformDrag()
         drag->setPixmap ( pixmap );
         drag->exec();
     }
-    */
+}
+
+QString PasswordView::currentPassword()
+{
+    QModelIndex index = model()->index(currentIndex().row(), 0);
+    
+    return model()->data(index).toString();
 }

@@ -37,6 +37,7 @@ private:
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     void preformDrag();
+    QString currentPassword();
 
     QPoint dragStartPos;
 };
