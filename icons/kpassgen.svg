@@ -15,7 +15,10 @@
    version="1.1"
    inkscape:version="0.48.1 r9760"
    sodipodi:docname="kpassgen.svg"
-   enable-background="new">
+   enable-background="new"
+   inkscape:export-filename="/home/james/Workspace/kpassgen/icons/kpassgen-8.png"
+   inkscape:export-xdpi="2.1182311"
+   inkscape:export-ydpi="2.1182311">
   <defs
      id="defs4">
     <filter
@@ -322,8 +325,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4"
-     inkscape:cx="215.59145"
-     inkscape:cy="240.25557"
+     inkscape:cx="187.02002"
+     inkscape:cy="154.54128"
      inkscape:document-units="px"
      inkscape:current-layer="layer2"
      showgrid="false"
