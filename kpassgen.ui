@@ -82,8 +82,14 @@
     <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,0">
      <item>
       <widget class="PasswordView" name="passwordView">
+       <property name="editTriggers">
+        <set>QAbstractItemView::NoEditTriggers</set>
+       </property>
        <attribute name="verticalHeaderVisible">
         <bool>false</bool>
+       </attribute>
+       <attribute name="verticalHeaderDefaultSectionSize">
+        <number>20</number>
        </attribute>
       </widget>
      </item>
