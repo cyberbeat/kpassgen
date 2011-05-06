@@ -3,6 +3,8 @@ project(kpassgen)
 find_package(KDE4 REQUIRED)
 include (KDE4Defaults)
 include_directories(${QT_INCLUDE} ${KDE4_INCLUDES} ${CMAKE_CURRENT_BINARY_DIR})
+cmake_minimum_required(VERSION 2.6)
+
 
 ###### Building kdicegen executable ######
 set(kpassgen_SRCS
