@@ -24,7 +24,7 @@
 
 #include <QApplication>
 #include <QClipboard>
-#include <qt5/QtWidgets/QWidget>
+#include <QWidget>
 #include <QString>
 #include <QStringList>
 #include "kpassgen.h"
