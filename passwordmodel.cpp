@@ -20,7 +20,7 @@
 
 #include "passwordmodel.h"
 #include "common.h"
-#include <KDebug>
+#include "kpassgen.h"
 
 PasswordModel::PasswordModel( QObject* parent ): QAbstractTableModel(parent),
     reasonablePasswordLength(12)

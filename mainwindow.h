@@ -21,9 +21,9 @@
 #include "passwordview.h"
 #include "passwordmodel.h"
 
-#include <QWidget>
-#include <QStringList>
-#include <KXmlGuiWindow>
+#include <qt5/QtWidgets/QWidget>
+#include <qt5/QtCore/QStringList>
+#include <KF5/KXmlGui/KXmlGuiWindow>
 
 namespace Ui {
     class KPassGen;
@@ -38,6 +38,7 @@ public:
 private slots:
     void setCopyEnabled(bool enabled = true);
     void setCopyDisabled(bool enabled = true);
+	void toggleOptions();
     void genPass();
     void pageIndexChanged(int index);
     void alphaUpdate();
@@ -46,7 +47,7 @@ private slots:
     void clear();
     void setMonoFont(bool b = false);
     void selectionChanged(QModelIndex current, QModelIndex previous);
-    
+
 private:
     void setupActions();
     void setupContextMenu();

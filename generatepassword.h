@@ -20,10 +20,10 @@
 
 #include "random.h"
 
-#include <QObject>
-#include <QString>
-#include <QFlags>
-#include <QChar>
+#include <qt5/QtCore/QObject>
+#include <qt5/QtCore/QString>
+#include <qt5/QtCore/QFlags>
+#include <qt5/QtCore/QChar>
 
 
 class GeneratePassword : public QObject

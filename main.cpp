@@ -19,31 +19,40 @@
 #include "mainwindow.h"
 #include "random.h"
 
-#include <KApplication>
-#include <KAboutData>
-#include <KCmdLineArgs>
-#include <KUrl>
+#include <QApplication>
+#include <KCoreAddons/KAboutData>
+#include <QUrl>
 #include <QTextStream>
+#include <KLocalizedString>
+#include <QCommandLineParser>
+#include <KI18n/ki18n_export.h>
 
+#include "kpassgen.h"
 
 int main ( int argc, char *argv[] )
 {
     KAboutData aboutData (
         "kpassgen",					//appName
-        "kpassgen",					//catalogName
-        ki18n ( "KPassGen" ),			//programName
+        ki18n ( "KPassGen" ).toString(),			//programName
         "1.4",                      //version
         ki18n ( "Generates a set of random passwords of any "
                 "length that can include the letter a-z, A-Z"
                 " any number and symbols and any other character "
-                "that QString can handle or hex values." ), //shortDescription
-        KAboutData::License_GPL,
-        ki18n ( "Copyright (c) 2009 Michael Daffin" ) );
-    KCmdLineArgs::init ( argc, argv, &aboutData );
+                "that QString can handle or hex values." ).toString(), //shortDescription
+        KAboutLicense::GPL,
+        ki18n ( "Copyright (c) 2009 Michael Daffin" ).toString() );
+    QApplication app(argc, argv); // PORTING SCRIPT: move this to before the KAboutData initialization
+    QCommandLineParser parser;
+    KAboutData::setApplicationData(aboutData);
+    parser.addVersionOption();
+    parser.addHelpOption();
+    //PORTING SCRIPT: adapt aboutdata variable if necessary
+    aboutData.setupCommandLine(&parser);
+    parser.process(app); // PORTING SCRIPT: move this to after any parser.addOption
+    aboutData.processCommandLine(&parser);
 
     Random::init();
 
-    KApplication app;
 
     MainWindow* window = new MainWindow();
     window->show();

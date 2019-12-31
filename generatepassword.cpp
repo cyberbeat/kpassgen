@@ -27,6 +27,8 @@
 #include <sys/times.h>
 #include <argp.h>
 
+#include "kpassgen.h"
+
 QStringList GeneratePassword::genRandom ( int length, QString &characterset,
         int amount, QFlags<Option> &flags )
 {
@@ -34,7 +36,7 @@ QStringList GeneratePassword::genRandom ( int length, QString &characterset,
 
     if ( length > characterset.length() && flags & Unique )
     {
-        kError() << "Length greater then characterset length, "
+        qCCritical(kpassgen) << "Length greater then characterset length, "
         "cannot generate unique passwords";
         return QStringList();
     }

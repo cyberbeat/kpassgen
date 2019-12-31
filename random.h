@@ -19,10 +19,12 @@
 #define RANDOM_H
 #include <limits>
 #include <time.h>
-#include <QtGlobal>
-#include <QFile>
-#include <qdatastream.h>
-#include <KDebug>
+#include <qt5/QtCore/QtGlobal>
+#include <qt5/QtCore/QFile>
+#include <qt5/QtCore/QDataStream>
+#include <qt5/QtCore/QDebug>
+
+#include "kpassgen.h"
 
 class Random
 {
@@ -31,14 +33,14 @@ public:
         QFile urandom("/dev/urandom");
         int seed  = time(NULL);
         if (urandom.open(QIODevice::ReadOnly)){
-            kDebug() << "urandom found";
+            qCDebug(kpassgen) << "urandom found";
             QDataStream stream(&urandom);
             stream >> seed;
             // seed << stream;
         }
         qsrand(seed);
     }
-    static void init(int seed) { 
+    static void init(int seed) {
       qsrand(seed); }
 
     static int nextInt() { return qrand(); }

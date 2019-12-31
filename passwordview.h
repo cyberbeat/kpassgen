@@ -18,7 +18,7 @@
 #ifndef PASSWORDLIST_H
 #define PASSWORDLIST_H
 
-#include <QTableView>
+#include <qt5/QtWidgets/QTableView>
 
 class QMouseEvent;
 class QPoint;

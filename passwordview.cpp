@@ -1,4 +1,5 @@
 /*
+ *
     Copyright 2009 Michael Daffin <james1479@googlemail.com>
 
     This program is free software; you can redistribute it and/or modify
@@ -15,6 +16,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
+#include "kpassgen.h"
 #include "passwordview.h"
 #include "passwordwidget.h"
 #include "passwordmodel.h"
@@ -27,7 +29,8 @@
 #include <QProgressBar>
 #include <QTableWidgetItem>
 #include <QHeaderView>
-#include <QDebug>
+#include <QMimeData>
+#include <QDrag>
 
 PasswordView::PasswordView ( QWidget *parent ) : QTableView ( parent )
 {
@@ -42,10 +45,10 @@ void PasswordView::copyCurrentItem()
 {
     // Get an index of the current items if index is -1 or to large
     if (!currentIndex().isValid()) {
-        qDebug() << "Failed to copy: Index not valid";
+        qCDebug(kpassgen) << "Failed to copy: Index not valid";
         return;
     }
-    
+
     QString password = currentPassword();
 
     QClipboard *cb = QApplication::clipboard();
@@ -111,6 +114,6 @@ void PasswordView::preformDrag()
 QString PasswordView::currentPassword()
 {
     QModelIndex index = model()->index(currentIndex().row(), 0);
-    
+
     return model()->data(index).toString();
 }

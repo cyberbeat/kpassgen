@@ -24,14 +24,14 @@
 
 #include <QApplication>
 #include <QClipboard>
-#include <QtGui/QWidget>
+#include <qt5/QtWidgets/QWidget>
 #include <QString>
 #include <QStringList>
-#include <QDebug>
+#include "kpassgen.h"
 
-#include <KLocale>
+#include <KLocalizedString>
 #include <KActionCollection>
-#include <KAction>
+#include <QAction>
 
 MainWindow::MainWindow ( QWidget *parent ) :
         KXmlGuiWindow ( parent ),
@@ -39,45 +39,48 @@ MainWindow::MainWindow ( QWidget *parent ) :
 {
     QWidget *widget = new QWidget;
     ui->setupUi ( widget );
-    
+
     setCentralWidget(widget);
-    
+
     setupActions();
     setupContextMenu();
 
     setupGUI ( Create | Save );
-    
-    ui->optionspane->setVisible ( false );
-    ui->passwordView->setModel(&model);
-    
+
+    ui->optionspane->setVisible ( true );
+
+	ui->passwordView->setModel(&model);
+
     ui->passwordView->setSelectionBehavior(QAbstractItemView::SelectRows);
     QHeaderView *header = ui->passwordView->horizontalHeader();
-    header->setResizeMode(QHeaderView::Stretch);
-    header->setResizeMode(1, QHeaderView::Interactive);
+    header->setSectionResizeMode(QHeaderView::Stretch);
+    header->setSectionResizeMode(1, QHeaderView::Interactive);
 
     readSettings();
 
-    connect ( ui->buttonGenerate,      SIGNAL ( clicked() ), 
+	connect ( ui->buttonOptions,      SIGNAL ( clicked() ),
+              this,                    SLOT ( toggleOptions() ) );
+    connect ( ui->buttonGenerate,      SIGNAL ( clicked() ),
               this,                    SLOT ( genPass() ) );
-    connect ( ui->checkAlphaCustom,    SIGNAL ( toggled ( bool ) ), 
+    connect ( ui->checkAlphaCustom,    SIGNAL ( toggled ( bool ) ),
               this,                    SLOT ( alphaUpdate() ) );
-    connect ( ui->checkAlphaLowercase, SIGNAL ( toggled ( bool ) ), 
+    connect ( ui->checkAlphaLowercase, SIGNAL ( toggled ( bool ) ),
               this,                    SLOT ( alphaUpdate() ) );
-    connect ( ui->checkAlphaUppercase, SIGNAL ( toggled ( bool ) ), 
+    connect ( ui->checkAlphaUppercase, SIGNAL ( toggled ( bool ) ),
               this,                    SLOT ( alphaUpdate() ) );
-    connect ( ui->checkAlphaNumbers,   SIGNAL ( toggled ( bool ) ), 
+    connect ( ui->checkAlphaNumbers,   SIGNAL ( toggled ( bool ) ),
               this,                    SLOT ( alphaUpdate() ) );
-    connect ( ui->checkAlphaSymbols,   SIGNAL ( toggled ( bool ) ), 
+    connect ( ui->checkAlphaSymbols,   SIGNAL ( toggled ( bool ) ),
               this,                    SLOT ( alphaUpdate() ) );
-    connect ( ui->checkAlphaUnique,    SIGNAL ( toggled ( bool ) ), 
+    connect ( ui->checkAlphaUnique,    SIGNAL ( toggled ( bool ) ),
               this,                    SLOT ( uniqueToggle ( bool ) ) );
-    connect ( ui->lineAlphaCustom,     SIGNAL ( textChanged ( QString ) ), 
+    connect ( ui->lineAlphaCustom,     SIGNAL ( textChanged ( QString ) ),
               this,                    SLOT ( alphaUpdate() ) );
-    connect ( ui->comboType,           SIGNAL ( currentIndexChanged ( int ) ), 
+    connect ( ui->comboType,           SIGNAL ( currentIndexChanged ( int ) ),
               this,                    SLOT ( pageIndexChanged ( int ) ) );
-    connect ( ui->buttonCopy,          SIGNAL ( clicked() ), 
+    connect ( ui->buttonCopy,          SIGNAL ( clicked() ),
               this,                    SLOT ( copy() ) );
-    connect ( ui->passwordView->selectionModel(), 
+    connect ( ui->passwordView->selectionModel(),
               SIGNAL ( currentRowChanged( QModelIndex,QModelIndex ) ),
               this, SLOT ( selectionChanged( QModelIndex, QModelIndex ) ) );
 }
@@ -89,20 +92,20 @@ MainWindow::~MainWindow()
 
 void MainWindow::setupActions()
 {
-    KAction* copyAction = new KAction ( this );
+    QAction * copyAction = new QAction ( this );
     copyAction->setText ( i18n ( "&Copy" ) );
-    copyAction->setIcon ( KIcon ( "edit-copy" ) );
-    copyAction->setShortcut ( KShortcut ( "Ctrl+C" ) );
+    copyAction->setIcon ( QIcon ( "edit-copy" ) );
+    copyAction->setShortcut ( QKeySequence ( "Ctrl+C" ) );
     copyAction->setEnabled ( false );
     actionCollection()->addAction ( "edit-copy", copyAction );
 
-    KAction* clearAction = new KAction ( this );
+    QAction * clearAction = new QAction ( this );
     clearAction->setText ( i18n ( "Clear &Passwords" ) );
-    clearAction->setIcon ( KIcon ( "edit-clear" ) );
-    clearAction->setShortcut ( KShortcut ( "Ctrl+D" ) );
+    clearAction->setIcon ( QIcon::fromTheme(QStringLiteral("edit-clear")) );
+    clearAction->setShortcut ( QKeySequence ( "Ctrl+D" ) );
     actionCollection()->addAction ( "edit-clear", clearAction );
 
-    KAction* monoToggle = new KAction ( this );
+    QAction * monoToggle = new QAction ( this );
     monoToggle->setText ( i18n ( "&Toggle mono spaced font" ) );
     monoToggle->setCheckable ( true );
     monoToggle->setChecked ( Settings::monoFont() );
@@ -168,6 +171,11 @@ void MainWindow::readSettings()
     ui->checkPernNumber->setChecked ( Settings::pernNumber() );
     ui->checkPernUnam->setChecked ( Settings::pernUnambigous() );
     pageIndexChanged ( ui->comboType->currentIndex() );
+}
+
+void MainWindow::toggleOptions()
+{
+	ui->optionspane->setVisible(!ui->optionspane->isVisible());
 }
 
 void MainWindow::genPass()

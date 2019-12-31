@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>467</width>
-    <height>464</height>
+    <height>534</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -33,7 +33,7 @@
       </widget>
      </item>
      <item>
-      <widget class="KIntSpinBox" name="spinLength">
+      <widget class="QSpinBox" name="spinLength">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -89,7 +89,7 @@
         <bool>false</bool>
        </attribute>
        <attribute name="verticalHeaderDefaultSectionSize">
-        <number>20</number>
+        <number>22</number>
        </attribute>
       </widget>
      </item>
@@ -109,7 +109,16 @@
           </property>
           <widget class="QWidget" name="page">
            <layout class="QVBoxLayout" name="verticalLayout_3">
-            <property name="margin">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
              <number>0</number>
             </property>
             <item>
@@ -374,7 +383,7 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="KIntSpinBox" name="spinAmount">
+            <widget class="QSpinBox" name="spinAmount">
              <property name="whatsThis">
               <string>The number of passwords to generate at a time</string>
              </property>
@@ -397,7 +406,7 @@ p, li { white-space: pre-wrap; }
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
-      <widget class="KPushButton" name="buttonCopy">
+      <widget class="QPushButton" name="buttonCopy">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -413,7 +422,7 @@ p, li { white-space: pre-wrap; }
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="buttonGenerate">
+      <widget class="QPushButton" name="buttonGenerate">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -439,7 +448,7 @@ p, li { white-space: pre-wrap; }
       </spacer>
      </item>
      <item>
-      <widget class="KPushButton" name="buttonOptions">
+      <widget class="QPushButton" name="buttonOptions">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -459,16 +468,6 @@ p, li { white-space: pre-wrap; }
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KIntSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>knuminput.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
   <customwidget>
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
@@ -495,22 +494,6 @@ p, li { white-space: pre-wrap; }
     <hint type="destinationlabel">
      <x>447</x>
      <y>104</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonOptions</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>optionspane</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>456</x>
-     <y>453</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>456</x>
-     <y>420</y>
     </hint>
    </hints>
   </connection>

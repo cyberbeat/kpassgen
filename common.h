@@ -18,7 +18,7 @@
 #ifndef COMMON_H
 #define COMMON_H
 
-#include <KLocale>
+#include <KLocalizedString>
 
 const QString lowercase_set(i18n("abcdefghijklmnopqrstuvwxyz"));
 const QString uppercase_set(i18n("ABCDEFGHIJKLMNOPQRSTUVWXYZ"));
