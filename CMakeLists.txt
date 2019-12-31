@@ -1,8 +1,25 @@
 project(kpassgen)
 
-find_package(KDE4 REQUIRED)
-include (KDE4Defaults)
-include_directories(${QT_INCLUDE} ${KDE4_INCLUDES} ${CMAKE_CURRENT_BINARY_DIR})
+find_package(ECM 5.62.0 REQUIRED NO_MODULE)
+set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
+
+include(ECMAddAppIcon)
+include(ECMInstallIcons)
+include(KDEInstallDirs)
+include(KDECMakeSettings)
+include(KDECompilerSettings)
+include(FeatureSummary)
+include(ECMQtDeclareLoggingCategory)
+
+find_package(Qt5 COMPONENTS Core Widgets DBus REQUIRED)
+find_package(KF5Config)
+find_package(KF5I18n)
+find_package(KF5XmlGui)
+find_package(KF5CoreAddons)
+find_package(KF5Completion)
+find_package(KF5Auth)
+
+include_directories(${Qt5Widgets_INCLUDE_DIRS} ${Qt5DBus_INCLUDE_DIRS} ${CMAKE_CURRENT_BINARY_DIR})
 cmake_minimum_required(VERSION 2.6)
 
 
@@ -16,15 +33,20 @@ set(kpassgen_SRCS
     passwordmodel.cpp
 )
 
-kde4_add_kcfg_files(kpassgen_SRCS settings.kcfgc)
+ecm_qt_declare_logging_category(kpassgen_SRCS HEADER kpassgen.h IDENTIFIER kpassgen CATEGORY_NAME org.kde.kpassgen)
 
-kde4_add_ui_files(kpassgen_SRCS kpassgen.ui)
 
-kde4_add_app_icon(kpassgen "${CMAKE_CURRENT_SOURCE_DIR}/hi*-app-kpassgen.png"})
+kconfig_add_kcfg_files(kpassgen_SRCS settings.kcfgc)
 
-kde4_add_executable(kpassgen ${kpassgen_SRCS})
+ki18n_wrap_ui(kpassgen_SRCS kpassgen.ui)
 
-target_link_libraries(kpassgen ${KDE4_KDEUI_LIBS})
+file(GLOB ICONS_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/icons/hi*-app-kpassgen.png")
+# message(${ICONS_SRCS})
+ecm_add_app_icon(kpassgen ICONS ${ICONS_SRCS})
+
+add_executable(kpassgen ${kpassgen_SRCS})
+
+target_link_libraries(kpassgen KF5::XmlGui KF5::I18n KF5::CoreAddons KF5::Completion KF5::Auth)
 
 ########### install files ###############
 
@@ -32,7 +54,9 @@ install(TARGETS kpassgen DESTINATION ${BIN_INSTALL_DIR})
 
 install(FILES kpassgen.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 
-kde4_install_icons(${ICON_INSTALL_DIR})
+install(FILES kpassgen.categories DESTINATION ${KDE_INSTALL_CONFDIR} )
+
+ecm_install_icons(${ICON_INSTALL_DIR})
 
 install(FILES settings.kcfg  DESTINATION  ${KCFG_INSTALL_DIR})
 
