@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=KPassGen
 GenericName=Password Generator
-Exec=kpassgen -caption %c
+Exec=kpassgen
 Icon=kpassgen
 Type=Application
 Terminal=false

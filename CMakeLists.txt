@@ -1,6 +1,6 @@
 project(kpassgen)
 
-find_package(ECM 5.62.0 REQUIRED NO_MODULE)
+find_package(ECM 5.61.0 REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 
 include(ECMAddAppIcon)
@@ -54,7 +54,7 @@ install(TARGETS kpassgen DESTINATION ${BIN_INSTALL_DIR})
 
 install(FILES kpassgen.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 
-install(FILES kpassgen.categories DESTINATION ${KDE_INSTALL_CONFDIR} )
+install(FILES kpassgen.categories DESTINATION ${KDE_INSTALL_LOGGINGCATEGORIESDIR})
 
 ecm_install_icons(ICONS ${ICONS_SRCS} DESTINATION ${ICON_INSTALL_DIR})
 
