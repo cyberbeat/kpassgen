@@ -40,8 +40,8 @@ kconfig_add_kcfg_files(kpassgen_SRCS settings.kcfgc)
 
 ki18n_wrap_ui(kpassgen_SRCS kpassgen.ui)
 
-file(GLOB ICONS_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/icons/hi*-app-kpassgen.png")
-# message(${ICONS_SRCS})
+file(GLOB ICONS_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/icons/*-kpassgen.png")
+
 ecm_add_app_icon(kpassgen ICONS ${ICONS_SRCS})
 
 add_executable(kpassgen ${kpassgen_SRCS})
@@ -56,8 +56,8 @@ install(FILES kpassgen.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 
 install(FILES kpassgen.categories DESTINATION ${KDE_INSTALL_CONFDIR} )
 
-ecm_install_icons(${ICON_INSTALL_DIR})
+ecm_install_icons(ICONS ${ICONS_SRCS} DESTINATION ${ICON_INSTALL_DIR})
 
 install(FILES settings.kcfg  DESTINATION  ${KCFG_INSTALL_DIR})
 
-install(FILES kpassgenui.rc DESTINATION  ${DATA_INSTALL_DIR}/kpassgen)
+install(FILES kpassgenui.rc DESTINATION  ${KXMLGUI_INSTALL_DIR}/kpassgen)

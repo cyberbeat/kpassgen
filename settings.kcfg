@@ -2,7 +2,6 @@
 <!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
 <kcfg>
     <kcfgfile/>
-    <include>kglobalsettings.h</include>
     <group name="alphanumerical">
         <entry name="alphaLowercase" type="Bool">
             <label>Lowercase</label>

@@ -34,7 +34,7 @@ int main ( int argc, char *argv[] )
     KAboutData aboutData (
         "kpassgen",					//appName
         ki18n ( "KPassGen" ).toString(),			//programName
-        "1.4",                      //version
+        "1.5",                      //version
         ki18n ( "Generates a set of random passwords of any "
                 "length that can include the letter a-z, A-Z"
                 " any number and symbols and any other character "
